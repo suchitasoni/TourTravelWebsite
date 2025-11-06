@@ -1,0 +1,21 @@
+.hero{
+    padding: 15px;
+}
+.footer{
+    min-height: 30vh;
+    background-image: url(https://res.cloudinary.com/dt5wgcgwl/image/upload/v1762098016/a7qewugz40xem1yj3i7b.png);
+    border: solid;
+    align-content: center;
+    background-position: bottom;
+    color: #fff;
+}
+.footer h3{
+    font-size: 1.4vw;
+    font-weight: 500;
+}
+
+@media (max-width: 580px) {
+    .footer h3{
+        font-size: 4.5vw;
+    }
+}
