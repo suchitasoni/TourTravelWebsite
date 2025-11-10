@@ -3,19 +3,13 @@ import SEOHelmet from "../seo/SeoHelmet";
 import "./Home.css";
 import Packages from "../Components/Packages";
 import ReviewsCarousel from "../Components/ReviewsCaraousel.jsx";
-import Footer from "../Components/Footer.jsx";
 import HowItWorks from "../Components/HowItWorks.jsx";
-import { Fab, Modal, Box } from "@mui/material";
-import ChatIcon from "@mui/icons-material/Chat";
-import CloseIcon from "@mui/icons-material/Close";
-import EnquiryForm from "../Components/EnquiryForm";
 import { useEffect, useState } from "react";
 import { logEvent } from "firebase/analytics";
 import { analytics } from "../firebase.js";
 import Navbar from "../Components/Navbar.jsx";
 
 export default function Home({recordVisit}) {
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     logEvent(analytics, "page_view", { page: "Packages" });
@@ -55,7 +49,6 @@ export default function Home({recordVisit}) {
       </script>
 
       <main className="homepage">
-        <section id="navbar"><Navbar /></section>
         <section id="home" className="hero">
           <HeroSection />
         </section>
@@ -69,28 +62,8 @@ export default function Home({recordVisit}) {
         <section id="reviews" style={{padding: '5px 15px'}}>
           <ReviewsCarousel />
         </section>
-        <section id="footer" className="footer"><Footer /></section>
-        <div>
-          <Fab
-            color="primary"
-            aria-label="contact"
-            className="floating-contact-btn"
-            onClick={() => setOpen(true)}
-          >
-            <ChatIcon />
-          </Fab>
-
-          {/* ✅ Modal for Contact Form */}
-          <Modal open={open} onClose={() => setOpen(false)}>
-            <Box className="contact-modal">
-              <Box className="contact-modal-header">
-                <h2>Contact Us</h2>
-                <CloseIcon className="close-icon" onClick={() => setOpen(false)} />
-              </Box>
-              <EnquiryForm /> {/* 👈 your existing enquiry form component */}
-            </Box>
-          </Modal>
-        </div>
+        
+        
       </main>
     </>
   );

@@ -18,7 +18,7 @@ const Gallery = () => {
   }, []);
 
   return (
-    <div className="gallery-page">
+    <div style={{marginTop:'73px'}}>
         <h1>Gallery</h1>
         <p>Welcome to the Gallery page. Explore our collection of travel photos!</p>
         <div style={{display:'flex',flexWrap:'wrap'}}>

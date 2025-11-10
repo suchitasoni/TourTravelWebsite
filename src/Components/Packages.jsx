@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import "./Packages.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
+import { Link } from "react-router-dom";
 
 export default function Packages() {
   const [activeTab, setActiveTab] = useState("All");
@@ -101,28 +102,30 @@ export default function Packages() {
             </div>
           ) : (
           filteredPackages.map((pkg) => (
-            <Card key={pkg.id} className="package-card carousel-card">
-              <CardMedia
-                component="img"
-                height="180"
-                image={pkg.imageUrl}
-                alt={pkg.title}
-              />
-              <CardContent>
-                <Typography variant="body2" className="duration-badge">
-                  {pkg.duration}
-                </Typography>
-                <Typography variant="h6" fontWeight={600}>
-                  {pkg.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" mt={1}>
-                  {pkg.description}
-                </Typography>
-                <Typography variant="body1" fontWeight={600} sx={{ mt: 1 }}>
-                  {pkg.price > 0 ? `Starting at ₹ ${pkg.price} /person` : "Coming Soon"}
-                </Typography>
-              </CardContent>
-            </Card>
+            <Link key={pkg.id} to={`/itinerary/${pkg.id}`}>
+              <Card key={pkg.id} className="package-card carousel-card">
+                <CardMedia
+                  component="img"
+                  height="180"
+                  image={pkg.imageUrl}
+                  alt={pkg.title}
+                />
+                <CardContent>
+                  <Typography variant="body2" className="duration-badge">
+                    {pkg.duration}
+                  </Typography>
+                  <Typography variant="h6" fontWeight={600}>
+                    {pkg.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" mt={1}>
+                    {pkg.description}
+                  </Typography>
+                  <Typography variant="body1" fontWeight={600} sx={{ mt: 1 }}>
+                    {pkg.price > 0 ? `Starting at ₹ ${pkg.price} /person` : "Coming Soon"}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
           ))
         )}
         </div>

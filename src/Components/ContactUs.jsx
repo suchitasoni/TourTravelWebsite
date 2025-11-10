@@ -2,7 +2,6 @@ import './Contact.css';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import EnquiryForm from './EnquiryForm';
-import Footer from './Footer';
 import { use, useEffect } from 'react';
 
 export default function ContactUs({recordVisit}) {
@@ -39,7 +38,6 @@ export default function ContactUs({recordVisit}) {
                 </div>
             </section>
             <section style={{marginBottom:'20px'}}><EnquiryForm /></section>
-            <section className="footer"><Footer /></section>  
         </div>
     )
 }

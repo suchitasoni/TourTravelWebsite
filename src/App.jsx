@@ -9,8 +9,18 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from './firebase'
 import { getSessionId } from './utils/session'
 import Gallery from './Components/Gallery'
+import ItineraryPage from './Components/ItineraryPage'
+import { Fab, Modal, Box } from "@mui/material";
+import ChatIcon from "@mui/icons-material/Chat";
+import CloseIcon from "@mui/icons-material/Close";
+import EnquiryForm from "./Components/EnquiryForm";
+import { useState } from 'react'
+import Footer from "./Components/Footer.jsx";
+import Navbar from './Components/Navbar.jsx'
 
 function App() {
+    const [open, setOpen] = useState(false);
+
   const recordVisit = async (page) => {
     try {
       const sessionId = getSessionId();
@@ -25,6 +35,7 @@ function App() {
   };
   return (
     <div className="App">
+      <section id="navbar"><Navbar /></section>
       <Routes>
         <Route path="/" element={<Home recordVisit={recordVisit}/>} />
         <Route path='/admin' element={<AdminLogin />} />
@@ -32,8 +43,30 @@ function App() {
         <Route path='/reviews' element={<GoogleReviewsEmbed />} />
         <Route path='/contact' element={<ContactUs recordVisit={recordVisit} />} />
         <Route path='/gallery' element={<Gallery />} />
+        <Route path="/itinerary/:id" element={<ItineraryPage />} />
       </Routes>
-      
+      <section id="footer" className="footer"><Footer /></section>
+      <div>
+          <Fab
+            color="primary"
+            aria-label="contact"
+            className="floating-contact-btn"
+            onClick={() => setOpen(true)}
+          >
+            <ChatIcon />
+          </Fab>
+
+          {/* ✅ Modal for Contact Form */}
+          <Modal open={open} onClose={() => setOpen(false)}>
+            <Box className="contact-modal">
+              <Box className="contact-modal-header">
+                <h2>Contact Us</h2>
+                <CloseIcon className="close-icon" onClick={() => setOpen(false)} />
+              </Box>
+              <EnquiryForm /> {/* 👈 your existing enquiry form component */}
+            </Box>
+          </Modal>
+        </div>
     </div>
   )
 }
