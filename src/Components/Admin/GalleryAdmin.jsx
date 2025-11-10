@@ -68,21 +68,27 @@ const GalleryAdmin = () => {
 
   // Delete from Firestore + Cloudinary
   const handleDelete = async (id, imageUrl) => {
-    if (!window.confirm("Delete this image?")) return;
+    if (!window.confirm("Delete this image?")) {
+      return;
+    }
 
-     try {
-    const res = await fetch("/.netlify/functions/delete-image", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ imageUrl }), // or { public_id }
-    });
+    try {
+      await deleteDoc(doc(db, "gallery", id));
+      const res = await fetch("/.netlify/functions/delete-image", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageUrl }), // or { public_id }
+      });
 
-    const data = await res.json();
-    if (data.success) console.log("Deleted:", data.public_id);
-    else console.error("Delete failed:", data.error);
-  } catch (err) {
-    console.error("Network error:", err);
-  }
+      const data = await res.json();
+      if (data.success){
+        console.log("Deleted:", data.public_id);
+        setImages((prev) => prev.filter((img) => img.id !== id));
+      } 
+      else console.error("Delete failed:", data.error);
+    } catch (err) {
+      console.error("Network error:", err);
+    }
   };
 
   return (
