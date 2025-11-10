@@ -5,7 +5,7 @@ import { doc, getDoc } from "firebase/firestore";
 import EnquiryForm from "./EnquiryForm";
 
 const ItineraryPage = () => {
-  const { id } = useParams(); // package id like "andaman"
+  const { id  } = useParams(); // package id like "andaman"
   const navigate = useNavigate();
   const [pkg, setPkg] = useState(null);
   const [loading, setLoading] = useState(true);

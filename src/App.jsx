@@ -1,6 +1,6 @@
 import './App.css'
 import Home from './Pages/Home'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation, useParams } from 'react-router-dom'
 import GoogleReviewsEmbed from './Components/GoogleReviewsEmbed'
 import ContactUs from './Components/ContactUs'
 import AdminLogin from './Components/Admin/AdminLogin'
@@ -20,6 +20,8 @@ import Navbar from './Components/Navbar.jsx'
 
 function App() {
     const [open, setOpen] = useState(false);
+    const location = useLocation();
+    const hideLayout = location.pathname.startsWith("/admin");
 
   const recordVisit = async (page) => {
     try {
@@ -35,7 +37,7 @@ function App() {
   };
   return (
     <div className="App">
-      <section id="navbar"><Navbar /></section>
+      {!hideLayout && <section id="navbar"><Navbar /></section>}
       <Routes>
         <Route path="/" element={<Home recordVisit={recordVisit}/>} />
         <Route path='/admin' element={<AdminLogin />} />
@@ -45,28 +47,28 @@ function App() {
         <Route path='/gallery' element={<Gallery />} />
         <Route path="/itinerary/:id" element={<ItineraryPage />} />
       </Routes>
-      <section id="footer" className="footer"><Footer /></section>
-      <div>
-          <Fab
-            color="primary"
-            aria-label="contact"
-            className="floating-contact-btn"
-            onClick={() => setOpen(true)}
-          >
-            <ChatIcon />
-          </Fab>
+      {!hideLayout && <section id="footer" className="footer"><Footer /></section>}
+      {!hideLayout && <div>
+        <Fab
+          color="primary"
+          aria-label="contact"
+          className="floating-contact-btn"
+          onClick={() => setOpen(true)}
+        >
+          <ChatIcon />
+        </Fab>
 
-          {/* ✅ Modal for Contact Form */}
-          <Modal open={open} onClose={() => setOpen(false)}>
-            <Box className="contact-modal">
-              <Box className="contact-modal-header">
-                <h2>Contact Us</h2>
-                <CloseIcon className="close-icon" onClick={() => setOpen(false)} />
-              </Box>
-              <EnquiryForm /> {/* 👈 your existing enquiry form component */}
+        {/* ✅ Modal for Contact Form */}
+        <Modal open={open} onClose={() => setOpen(false)}>
+          <Box className="contact-modal">
+            <Box className="contact-modal-header">
+              <h2>Contact Us</h2>
+              <CloseIcon className="close-icon" onClick={() => setOpen(false)} />
             </Box>
-          </Modal>
-        </div>
+            <EnquiryForm /> {/* 👈 your existing enquiry form component */}
+          </Box>
+        </Modal>
+        </div>}
     </div>
   )
 }
