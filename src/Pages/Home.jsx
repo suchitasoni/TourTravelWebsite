@@ -4,7 +4,6 @@ import "./Home.css";
 import Packages from "../Components/Packages";
 import ReviewsCarousel from "../Components/ReviewsCaraousel.jsx";
 import Footer from "../Components/Footer.jsx";
-import Navbar from "../Components/NavBar.jsx";
 import HowItWorks from "../Components/HowItWorks.jsx";
 import { Fab, Modal, Box } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -13,6 +12,7 @@ import EnquiryForm from "../Components/EnquiryForm";
 import { useEffect, useState } from "react";
 import { logEvent } from "firebase/analytics";
 import { analytics } from "../firebase.js";
+import Navbar from "../Components/Navbar.jsx";
 
 export default function Home({recordVisit}) {
   const [open, setOpen] = useState(false);
