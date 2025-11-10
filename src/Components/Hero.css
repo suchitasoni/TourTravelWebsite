@@ -7,6 +7,7 @@
     display: flex;
     justify-content: space-around;
     position: relative;
+    margin-top: 73px;
 }
 .hero-banner-image{
     height: 43vh;

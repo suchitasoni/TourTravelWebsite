@@ -68,7 +68,7 @@ const ReviewsCarousel = () => {
 
   return (
     <div className="review-carousel-flex"> 
-        <div style={{paddingLeft:'20px'}}>
+        <div className="review-carousel-first-div">
             {agencyInfo && (
             <div className="overall-rating-area">
             <h2>Our Success Story!"</h2>

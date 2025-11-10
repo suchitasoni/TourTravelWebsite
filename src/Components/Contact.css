@@ -1,0 +1,115 @@
+.contact-us-page{
+    height: 100%;
+    width: 100%;
+}
+.contact-details-flex{
+    width: -webkit-fill-available;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 3%;
+}
+.contact-us-image{
+        width: 20vw;
+    border-radius: 34%;
+}
+.contact-info-div{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+    h3{
+        flex-basis: 28%
+    }
+    span{
+        flex-basis: 54%;
+    }
+}
+.enquiry-container {
+    max-width: 70vw;
+    margin: 20px auto 0;
+    min-height: 489px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px #0b2c46;
+    font-family: "Poppins", sans-serif;
+    padding-top: 12px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.enquiry-container:hover {
+  transform: translateY(-4px);
+}
+
+.enquiry-title {
+  text-align: center;
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.enquiry-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.enquiry-form input,
+.enquiry-form textarea {
+    width: 75%;
+    padding: 12px 15px;
+    border: 2.5px solid #676464;
+    border-radius: 8px;
+    margin: auto;
+    background-color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.enquiry-form input:focus,
+.enquiry-form textarea:focus {
+  border-color: #4ca1af;
+  box-shadow: 0 0 4px rgba(76, 161, 175, 0.3);
+}
+
+.enquiry-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.enquiry-form button {
+    background: linear-gradient(90deg, #4b8d98, #c4e0e5);
+    color: #333;
+    max-width: 60%;
+    border: none;
+    padding: 12px;
+    margin: auto;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+}
+
+.enquiry-form button:hover {
+  background: linear-gradient(90deg, #3a7bd5, #3a6073);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .enquiry-container {
+    margin: 20px auto 0;
+  }
+
+  .enquiry-title {
+    font-size: 1.5rem;
+  }
+  .contact-details-flex{
+    flex-direction: column;
+  }
+}

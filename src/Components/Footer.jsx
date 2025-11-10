@@ -1,36 +1,52 @@
-import React from 'react';
-import CallRoundedIcon from '@mui/icons-material/CallRounded';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { Box, Typography, Link, IconButton } from "@mui/material";
+import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
 
-const Footer = () => {
-    const encoded = encodeURIComponent("Hi, I would like to enquire about your travel packages.");
-    const adminPhone = "919300304422";
-    
-    return(
-        <div style={{border:'solid',marginTop:'10px'}}>
-            <div style={{display:'flex',justifyContent:'space-around'}}>
-                <div style={{display: 'flex', flexDirection: 'column', rowGap: '10px'}}>
-                    <a href='tel:919300304422'><CallRoundedIcon sx={{verticalAlign:'middle'}}/>&nbsp; +91-9300304422</a>
-                    <a href='tel:07674292040'><CallRoundedIcon sx={{verticalAlign:'middle'}}/>&nbsp; 07674-292040</a>
-                    <a onClick={()=> window.open(`https://wa.me/${adminPhone}?text=${encoded}`, "_blank")}> <WhatsAppIcon sx={{verticalAlign:'middle'}}/> Enquire on WhatsApp</a>
-                </div>
-                <div style={{display: 'flex',flexDirection: 'column'}}>
-                    <h3>Home</h3>
-                    <h3>Packages</h3>
-                    <h3>Send Enquiry</h3>
-                </div>
-                <div style={{display: 'flex',flexDirection: 'column'}}>
-                    <h3>Contact Us</h3>
-                    <h3>Reviews</h3>
-                    <h3>Gallery</h3>
-                </div>
-                <div style={{display: 'flex',flexDirection: 'column'}}>
-                    <h3>Char Dham Yatra</h3>
-                    <h3>Shimla Tour Packages</h3>
-                    <h3>Rameshwaram Tour Packages</h3>
-                </div>
-            </div>
-        </div>
-    );
-};
-export default Footer;
+export default function Footer() {
+  return (
+    <Box className="footer-container">
+      <Box className="footer-links">
+        <Box className="footer-top">
+            <Typography variant="h5" mb={2} className="footer-title">Maihar Travels</Typography>
+            <Typography variant="body2" mb={2} className="footer-subtitle">
+            Explore India’s most spiritual and scenic destinations with us.
+            </Typography>
+            <Box className="footer-cta">
+            <Link href="/enquiry" className="footer-btn">Send Enquiry</Link>
+            <Link href="tel:+919300304422" className="footer-btn secondary">Call Us</Link>
+            </Box>
+        </Box>
+        <Box>
+          <Typography variant="h6" className="footer-heading">Quick Links</Typography>
+          <ul>
+            <li><Link href="/#home">Home</Link></li>
+            <li><Link href="/#packages">Packages</Link></li>
+            <li><Link href="/reviews">Reviews</Link></li>
+            <li><Link href="/gallery">Gallery</Link></li>
+            <li><Link href="/contact">Contact Us</Link></li>
+          </ul>
+        </Box>
+
+        <Box>
+          <Typography variant="h6" className="footer-heading">Popular Packages</Typography>
+          <ul>
+            <li><Link href="/packages/char-dham">Char Dham Yatra</Link></li>
+            <li><Link href="/packages/rameshwaram">Rameshwaram Tour</Link></li>
+            <li><Link href="/packages/goa">Goa Beach Tour</Link></li>
+            <li><Link href="/packages/kashmir">Kashmir Tour</Link></li>
+            <li><Link href="/packages/kerala">Kerala Backwaters</Link></li>
+          </ul>
+        </Box>
+      </Box>
+
+      {/* Bottom Strip */}
+      <Box className="footer-bottom">
+        <Typography variant="body2">© {new Date().getFullYear()} Maihar Travels | All Rights Reserved</Typography>
+        <Box>
+          <IconButton href="https://www.facebook.com" target="_blank"><Facebook /></IconButton>
+          <IconButton href="https://www.instagram.com" target="_blank"><Instagram /></IconButton>
+          <IconButton href="https://wa.me/919300304422" target="_blank"><WhatsApp /></IconButton>
+        </Box>
+      </Box>
+    </Box>
+  );
+}

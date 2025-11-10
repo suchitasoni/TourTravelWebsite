@@ -54,9 +54,27 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 42vh;
+  min-height: 35vh;
   color: #fff;
   border: solid;
   background-color: #457b9d;
   border-radius: 20px;
+}
+.review-carousel-first-div{
+  padding-left: 20px;
+}
+@media screen and (max-width: 768px) {
+
+    
+}
+@media screen and (max-width: 480px) {
+  .review-carousel-flex{
+    flex-direction: column;
+  }
+  .review-carousel-container{
+    width: 100%;
+  }
+  .review-carousel-first-div{
+    text-align: center;
+  }
 }

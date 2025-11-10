@@ -1,203 +1,136 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent, CardMedia, Typography, IconButton, duration } from "@mui/material";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { Tabs, Tab, Card, CardContent, CardMedia, Typography, Box, Grid, Skeleton } from "@mui/material";
 import { Helmet } from "react-helmet-async";
 import "./Packages.css";
-
-const packagesData = [
-  {
-    id: 1,
-    title: "Goa Holiday Package",
-    image: "https://res.cloudinary.com/dt5wgcgwl/image/upload/v1762112536/r64sirj4dplynouqcfae.jpg",
-    description: "Beaches · Nightlife",
-    price: "20,000",
-    duration: "5N/6D"
-  },
-  {
-    id: 2,
-    title: "Kashmir Paradise Tour",
-    image: "https://res.cloudinary.com/dt5wgcgwl/image/upload/v1762112536/hiyms4y54dwur0bksw1w.jpg",
-    description: "Gulmarg · Dal Lake",
-    price: "25,000",
-    duration: "6N/7D"
-  },
-  {
-    id: 3,
-    title: "Char Dham Yatra",
-    image: "https://res.cloudinary.com/dt5wgcgwl/image/upload/v1762112416/rigzvp6v7t7roe5y46l1.jpg",
-    description: "Spiritual · Mountains",
-    price: "30,000",
-    duration: "8N/9D"
-  },
-  {
-    id: 4,
-    title: "Shimla-Manali Trip",
-    image: "https://res.cloudinary.com/dt5wgcgwl/image/upload/v1762112390/yvbl9s8iaveuc0nd63yw.jpg",
-    description: "Hill Stations · Adventure",
-    price: "28,000",
-    duration: "7N/8D"
-  }
-];
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Packages() {
-  const [startIndex, setStartIndex] = useState(0);
-
-  const next = () => {
-    setStartIndex((prev) => (prev + 1) % packagesData.length);
-  };
-
-  const prev = () => {
-    setStartIndex((prev) => (prev - 1 + packagesData.length) % packagesData.length);
-  };
-
-  const firstIndex = startIndex;
-  const secondIndex = (startIndex + 1) % packagesData.length;
-  const thirdIndex = (startIndex + 2) % packagesData.length;
+  const [activeTab, setActiveTab] = useState("All");
+  const [filteredPackages, setFilteredPackages] = useState([]);
+  const [allPackages, setAllPackages] = useState([]);
+  const handleTabChange = (event, newValue) => setActiveTab(newValue);
+  const [categories, setCategories] = useState(["All"]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setInterval(next, 4000);
-    return () => clearInterval(timer);
+    const fetchPackages = async () => {
+      setLoading(true);
+      const snap = await getDocs(collection(db, "packages"));
+      const data = snap.docs.map((d) => d.data());
+      console.log("Fetched packages:", data);
+      setLoading(false);
+      return data;
+    };
+    fetchPackages().then((data) => {
+      setAllPackages(data);
+      const cats = Array.from(new Set(data.map((pkg) => pkg.category)));
+      setCategories(["All", ...cats]);
+      setFilteredPackages(data);
+    });
   }, []);
 
+  useEffect(() => {
+    if (activeTab == "All") {
+      setFilteredPackages(allPackages);
+    }
+    else{
+      const filtered = allPackages.filter((pkg) => pkg.category === activeTab);
+      setFilteredPackages(filtered);
+    }
+  }, [activeTab]);
+
+  // const categories = [
+  //   "Spiritual",
+  //   "Hill Station",
+  //   "Beach & Island",
+  //   "Nature & Serenity",
+  //   "International",
+  //   "Special Tours"
+  // ];
 
   return (
-    <div style={{padding:'0px 15px',position:'relative'}}>
-
+    <div className="packages-section">
       {/* ✅ SEO Optimization */}
       <Helmet>
-        <title>Best Tour Packages | Explore Top Travel Deals</title>
+        <title>Tour Packages by Category | Explore India & Beyond</title>
         <meta
           name="description"
-          content="Browse our curated tour packages including Goa, Bali, Dubai, Kashmir and more. Handpicked deals with premium experiences."
+          content="Browse our curated tour packages by category including Spiritual, Hill Stations, Beach, Nature, and International destinations."
         />
       </Helmet>
 
-      {/* ✅ Package Card Carousel */}
-      <div className="package-cards-group">
-        <Card
-          sx={{
-            width: 320,
-            borderRadius: 3,
-            boxShadow: 4,
-            transition: "0.5s ease",
-          }}
+      <Typography variant="h4" align="center" className="packages-title">
+        Explore Our Tour Packages
+      </Typography>
+
+      {/* ✅ Category Tabs */}
+      <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          textColor="primary"
+          indicatorColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+          aria-label="package categories"
         >
-          <CardMedia
-            component="img"
-            height="200"
-            image={packagesData[firstIndex].image}
-            alt={packagesData[firstIndex].title}
-          />
+          {categories.map((cat) => (
+            <Tab key={cat} label={cat} value={cat} />
+          ))}
+        </Tabs>
+      </Box>
 
-          <CardContent>
-            <Typography variant="body2" sx={{fontSize: '16px',color: '#000000',backgroundColor: '#FFFFFF',border: '1px solid #FFFFFF',
-width: 'fit-content',padding: '4px 12px',position: 'absolute',bottom: '85%',borderRadius: '16px', fontWeight: 600}}>
-                {packagesData[firstIndex].duration}
-            </Typography>
-            <Typography variant="h6" fontWeight={600}>
-              {packagesData[firstIndex].title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" mt={1}>
-              {packagesData[firstIndex].description}
-            </Typography>
-            <Typography variant="body1" fontWeight={600} sx={{mt: 1 }}>
-              Starting at ₹ {packagesData[firstIndex].price} <span style={{fontWeight: 400}}>/person</span>
-            </Typography>
-          </CardContent>
-        </Card>
-        <Card
-          sx={{
-            width: 320,
-            borderRadius: 3,
-            boxShadow: 4,
-            transition: "0.5s ease",
-          }}
-        >
-          <CardMedia
-            component="img"
-            height="200"
-            image={packagesData[secondIndex].image}
-            alt={packagesData[secondIndex].title}
-          />
+      {/* ✅ Packages Grid */}
+      <Box className="carousel-container">
+        <button className="scroll-btn left" onClick={() => {
+          document.querySelector('.carousel-inner').scrollBy({ left: -320, behavior: 'smooth' });
+        }}>‹</button>
 
-          <CardContent>
-            <Typography variant="body2" sx={{fontSize: '16px',color: '#000000',backgroundColor: '#FFFFFF',border: '1px solid #FFFFFF',
-width: 'fit-content',padding: '4px 12px',position: 'absolute',bottom: '85%',borderRadius: '16px', fontWeight: 600}}>
-                {packagesData[secondIndex].duration}
-            </Typography>
-            <Typography variant="h6" fontWeight={600}>
-              {packagesData[secondIndex].title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" mt={1}>
-              {packagesData[secondIndex].description}
-            </Typography>
-            <Typography variant="body1" fontWeight={600} sx={{mt: 1 }}>
-              Starting at ₹ {packagesData[secondIndex].price} <span style={{fontWeight: 400}}>/person</span>
-            </Typography>
-          </CardContent>
-        </Card>
-        <Card sx={{
-            width: 320,
-            borderRadius: 3,
-            boxShadow: 4,
-            transition: "0.5s ease",
-          }}
-        >
-          <CardMedia
-            component="img"
-            height="200"
-            image={packagesData[thirdIndex].image}
-            alt={packagesData[thirdIndex].title}
-          />
+        <div className="carousel-inner">
+          {loading ? (
+          <div className="skeleton-container">
+            {[...Array(3)].map((_, i) => (
+              <Box key={i} className="skeleton-card">
+                <Skeleton variant="rectangular" width={280} height={180} />
+                <Skeleton variant="text" sx={{ mt: 1, width: "80%" }} />
+                <Skeleton variant="text" width="60%" />
+                <Skeleton variant="text" width="40%" />
+              </Box>
+            ))}
+            </div>
+          ) : (
+          filteredPackages.map((pkg) => (
+            <Card key={pkg.id} className="package-card carousel-card">
+              <CardMedia
+                component="img"
+                height="180"
+                image={pkg.imageUrl}
+                alt={pkg.title}
+              />
+              <CardContent>
+                <Typography variant="body2" className="duration-badge">
+                  {pkg.duration}
+                </Typography>
+                <Typography variant="h6" fontWeight={600}>
+                  {pkg.title}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" mt={1}>
+                  {pkg.description}
+                </Typography>
+                <Typography variant="body1" fontWeight={600} sx={{ mt: 1 }}>
+                  {pkg.price > 0 ? `Starting at ₹ ${pkg.price} /person` : "Coming Soon"}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))
+        )}
+        </div>
 
-          <CardContent>
-            <Typography variant="body2" sx={{fontSize: '16px',color: '#000000',backgroundColor: '#FFFFFF',border: '1px solid #FFFFFF',
-width: 'fit-content',padding: '4px 12px',position: 'absolute',bottom: '85%',borderRadius: '16px', fontWeight: 600}}>
-                {packagesData[thirdIndex].duration}
-            </Typography>
-            <Typography variant="h6" fontWeight={600}>
-              {packagesData[thirdIndex].title}
-            </Typography>
-            <Typography variant="body2" color="text.secondary" mt={1}>
-              {packagesData[thirdIndex].description}
-            </Typography>
-            <Typography variant="body1" fontWeight={600} sx={{mt: 1 }}>
-              Starting at ₹ {packagesData[thirdIndex].price} <span style={{fontWeight: 400}}>/person</span>
-            </Typography>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* ✅ Prev Button */}
-      <IconButton
-        onClick={prev}
-        sx={{
-          position: "absolute",
-          left: "15px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          backgroundColor: "rgba(255,255,255,0.4)",
-          "&:hover": { backgroundColor: "rgba(255,255,255,0.7)" }
-        }}
-      >
-        <ArrowBackIosNewIcon />
-      </IconButton>
-
-      {/* ✅ Next Button */}
-      <IconButton
-        onClick={next}
-        sx={{
-          position: "absolute",
-          right: "15px",
-          top: "50%",
-          transform: "translateY(-50%)",
-          backgroundColor: "rgba(255,255,255,0.4)",
-          "&:hover": { backgroundColor: "rgba(255,255,255,0.7)" }
-        }}
-      >
-        <ArrowForwardIosIcon />
-      </IconButton>
+        <button className="scroll-btn right" onClick={() => {
+          document.querySelector('.carousel-inner').scrollBy({ left: 320, behavior: 'smooth' });
+        }}>›</button>
+      </Box>
     </div>
   );
 }
