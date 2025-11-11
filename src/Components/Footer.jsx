@@ -42,7 +42,7 @@ export default function Footer() {
       <Box className="footer-bottom">
         <Typography variant="body2">© {new Date().getFullYear()} Maihar Travels | All Rights Reserved</Typography>
         <Box>
-          <IconButton href="https://www.facebook.com" target="_blank"><Facebook /></IconButton>
+          <IconButton href="https://www.facebook.com" target="_blank"><Facebook/></IconButton>
           <IconButton href="https://www.instagram.com" target="_blank"><Instagram /></IconButton>
           <IconButton href="https://wa.me/919300304422" target="_blank"><WhatsApp /></IconButton>
         </Box>

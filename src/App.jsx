@@ -62,7 +62,6 @@ function App() {
         <Modal open={open} onClose={() => setOpen(false)}>
           <Box className="contact-modal">
             <Box className="contact-modal-header">
-              <h2>Contact Us</h2>
               <CloseIcon className="close-icon" onClick={() => setOpen(false)} />
             </Box>
             <EnquiryForm /> {/* 👈 your existing enquiry form component */}

@@ -16,10 +16,16 @@
 }
 .hero-text{
     position: absolute;
-    color: #333;
-    top: 12%;
-    max-width: 70%;
-    min-width: 80vw;
+    color: #ffffff;
+    height: -webkit-fill-available;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    align-content: space-evenly;
+    background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.7)
+  );
+    min-width: 90vw;
 }
 
 @media screen and (max-width: 768px) {
@@ -29,8 +35,5 @@
 @media screen and (max-width: 480px) {
     .hero-banner{
         height: 277px;
-    }
-    .hero-text{
-        top:5%;
     }
 }

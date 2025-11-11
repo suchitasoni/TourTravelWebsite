@@ -14,8 +14,8 @@ export default function ContactUs({recordVisit}) {
         <div className="contact-us-page">
             <section className="contact-details-flex">
                 <iframe title='google-map' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3637.3875189431947!2d80.75526037513198!3d24.26319167832397!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39838b0634340593%3A0x8c4e6ace37d6cc08!2sMaihar%20Online%20Service!5e0!3m2!1sen!2sin!4v1762446599057!5m2!1sen!2sin"
-                 width="400" height="300" style={{border: '0px',flexBasis: '34%',width:'100%'}} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
-                <div style={{flexBasis: '62%'}}>
+                 width="400" height="300" allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                <div>
                     <h1>Reach Us </h1>
                     <div>Main Off - Maihar Online Shukla Complex Devi Ji Road Maihar</div>
                     <div className="contact-info-div">

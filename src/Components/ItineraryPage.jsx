@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import EnquiryForm from "./EnquiryForm";
+import "../Components/Itinerary.css";
 
 const ItineraryPage = () => {
   const { id  } = useParams(); // package id like "andaman"
@@ -36,16 +37,7 @@ const ItineraryPage = () => {
   return (
     <div className="itinerary-page" style={{ fontFamily: "Inter, sans-serif" }}>
       {/* Hero Section */}
-      <div
-        style={{
-          position: "relative",
-          height: "400px",
-          backgroundImage: `url(${pkg.imageUrl})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          borderBottom: "4px solid #eee",
-        }}
-      >
+      <div className="itinerary-bg">
         <div
           style={{
             position: "absolute",

@@ -43,7 +43,7 @@
 
 .howitworks-icon {
   background: #0b2c46;
-  color: #ffcc00;
+  color: #fff;
   width: 70px;
   height: 70px;
   border-radius: 50%;
@@ -66,11 +66,12 @@
 
 /* Footer Styles */
 .footer-container {
-  background: #0b2c46;
+  background: #202021;
   color: #fff;
   padding-top: 20px;
   font-family: "Poppins", sans-serif;
   margin-top: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .footer-top {
@@ -95,7 +96,7 @@
 }
 
 .footer-btn {
-  background: #ffcc00;
+  background: #65abea;
   color: #000;
   text-decoration: none;
   font-weight: 600;
@@ -134,7 +135,7 @@
 }
 
 .footer-links a {
-  color: #d9e1e8;
+  color: #ffffff;
   text-decoration: none;
   font-size: 0.95rem;
   transition: color 0.2s ease;
@@ -156,7 +157,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  background: #082235;
+  background: #202021;
 }
 
 .footer-bottom p {
@@ -166,7 +167,7 @@
 }
 
 .footer-bottom svg {
-  color: #ffcc00;
+  color: #65abea;
   transition: transform 0.3s ease;
 }
 
@@ -178,8 +179,8 @@
   position: fixed !important;
   bottom: 25px;
   right: 25px;
-  background-color: #ffcc00 !important;
-  color: #0b2c46 !important;
+  background-color: #65abea !important;
+  color: #fff !important;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   z-index: 1200;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -205,10 +206,9 @@
 }
 
 .contact-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
 }
 
 .contact-modal-header h2 {

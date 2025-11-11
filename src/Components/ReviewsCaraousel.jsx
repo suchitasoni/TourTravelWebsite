@@ -79,7 +79,7 @@ const ReviewsCarousel = () => {
                 </span>
                 <div>Customer satisfaction is our major goal.</div><div> See what our customers are saying about us.</div>
             </div>
-            <Button variant="contained" color="success">See All</Button>
+            <Button variant="contained" color="primary">See All</Button>
             </div>
       )}
         </div>

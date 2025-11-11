@@ -51,14 +51,13 @@
   object-fit: cover;
 }
 .review-carousel-flex{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 35vh;
-  color: #fff;
-  border: solid;
-  background-color: #457b9d;
-  border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 35vh;
+    color: #333;
+    background-color: #F8F8F9;
+    border-radius: 20px;
 }
 .review-carousel-first-div{
   padding-left: 20px;

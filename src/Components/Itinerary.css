@@ -1,0 +1,14 @@
+.itinerary-bg{
+    position: relative;
+    height: 400px;
+    background-image: url("../assets/itinerary.jpg");
+    background-size: cover;
+    background-position: center center;
+    border-bottom: 4px solid rgb(238, 238, 238);
+    margin-top: 60px;
+}
+@media screen and (max-width: 480px) {
+    .itinerary-bg{
+        height: 250px;
+    }
+}
