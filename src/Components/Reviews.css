@@ -55,9 +55,14 @@
     justify-content: space-around;
     align-items: center;
     min-height: 35vh;
+    width: 90%;
     color: #333;
+    place-self: center;
     background-color: #F8F8F9;
     border-radius: 20px;
+}
+.overall-rating-value{
+  margin: 10px 0;
 }
 .review-carousel-first-div{
   padding-left: 20px;

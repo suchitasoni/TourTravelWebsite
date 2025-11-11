@@ -47,7 +47,7 @@ function App() {
         <Route path='/gallery' element={<Gallery />} />
         <Route path="/itinerary/:id" element={<ItineraryPage />} />
       </Routes>
-      {!hideLayout && <section id="footer" className="footer"><Footer /></section>}
+      {!hideLayout && <section id="footer" className="footer"><Footer setOpen={setOpen} /></section>}
       {!hideLayout && <div>
         <Fab
           color="primary"

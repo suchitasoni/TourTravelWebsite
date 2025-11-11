@@ -1,57 +1,29 @@
 import { useState, useEffect } from "react";
-import { Tabs, Tab, Card, CardContent, CardMedia, Typography, Box, Grid, Skeleton } from "@mui/material";
+import { Tabs, Tab, Card, CardContent, CardMedia, Typography, Box, Skeleton } from "@mui/material";
 import { Helmet } from "react-helmet-async";
 import "./Packages.css";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { Link } from "react-router-dom";
+import { useTourDetails } from "../TourContext";
 
 export default function Packages() {
   const [activeTab, setActiveTab] = useState("All");
-  const [filteredPackages, setFilteredPackages] = useState([]);
-  const [allPackages, setAllPackages] = useState([]);
+  const {packages, loading, categories, filteredPackages, setFilteredPackages} = useTourDetails();
   const handleTabChange = (event, newValue) => setActiveTab(newValue);
-  const [categories, setCategories] = useState(["All"]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchPackages = async () => {
-      setLoading(true);
-      const snap = await getDocs(collection(db, "packages"));
-      const data = snap.docs.map((d) => d.data());
-      console.log("Fetched packages:", data);
-      setLoading(false);
-      return data;
-    };
-    fetchPackages().then((data) => {
-      setAllPackages(data);
-      const cats = Array.from(new Set(data.map((pkg) => pkg.category)));
-      setCategories(["All", ...cats]);
-      setFilteredPackages(data);
-    });
-  }, []);
 
   useEffect(() => {
     if (activeTab == "All") {
-      setFilteredPackages(allPackages);
+      setFilteredPackages(packages);
     }
     else{
-      const filtered = allPackages.filter((pkg) => pkg.category === activeTab);
+      const filtered = packages.filter((pkg) => pkg.category === activeTab);
       setFilteredPackages(filtered);
     }
   }, [activeTab]);
 
-  // const categories = [
-  //   "Spiritual",
-  //   "Hill Station",
-  //   "Beach & Island",
-  //   "Nature & Serenity",
-  //   "International",
-  //   "Special Tours"
-  // ];
-
   return (
-    <div className="packages-section">
+    <div id="packages-section" className="packages-section">
       {/* ✅ SEO Optimization */}
       <Helmet>
         <title>Tour Packages by Category | Explore India & Beyond</title>
@@ -65,7 +37,6 @@ export default function Packages() {
         Explore Our Tour Packages
       </Typography>
 
-      {/* ✅ Category Tabs */}
       <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
         <Tabs
           value={activeTab}
@@ -82,7 +53,6 @@ export default function Packages() {
         </Tabs>
       </Box>
 
-      {/* ✅ Packages Grid */}
       <Box className="carousel-container">
         <button className="scroll-btn left" onClick={() => {
           document.querySelector('.carousel-inner').scrollBy({ left: -320, behavior: 'smooth' });

@@ -3,6 +3,7 @@ import "./Hero.css";
 import { IconButton } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useHref, useNavigate } from "react-router-dom";
 
 const images = [
   "https://res.cloudinary.com/dt5wgcgwl/image/upload/v1762098016/a7qewugz40xem1yj3i7b.png",
@@ -19,6 +20,16 @@ const HeroSection = () => {
 
     return () => clearInterval(timer);
   }, []);
+
+   const handlePackagesNavigation = () => {
+    const element = document.getElementById('packages');
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth', // Optional: smooth scrolling
+            block: 'start'      // Aligns the top of the element to the top of the viewport
+        });
+    }
+  };
 
   const nextSlide = () => {
     setIndex((prev) => (prev + 1) % images.length);
@@ -41,7 +52,7 @@ const HeroSection = () => {
           Find the best tour packages, holiday trips, and affordable travel
           deals curated specially for you.
         </p>
-        <button>View Packages</button>
+        <button onClick={handlePackagesNavigation}>View Packages</button>
       </div>
       
       <IconButton onClick={prevSlide}

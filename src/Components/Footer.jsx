@@ -1,7 +1,9 @@
 import { Box, Typography, Link, IconButton } from "@mui/material";
 import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
+import { useTourDetails } from "../TourContext";
 
-export default function Footer() {
+export default function Footer({setOpen}) {
+  const {packages} = useTourDetails();
   return (
     <Box className="footer-container">
       <Box className="footer-links">
@@ -11,7 +13,7 @@ export default function Footer() {
             Explore India’s most spiritual and scenic destinations with us.
             </Typography>
             <Box className="footer-cta">
-            <Link href="/enquiry" className="footer-btn">Send Enquiry</Link>
+            <Link onClick={()=>setOpen(true)} className="footer-btn">Send Enquiry</Link>
             <Link href="tel:+919300304422" className="footer-btn secondary">Call Us</Link>
             </Box>
         </Box>
@@ -29,11 +31,9 @@ export default function Footer() {
         <Box>
           <Typography variant="h6" className="footer-heading">Popular Packages</Typography>
           <ul>
-            <li><Link href="/packages/char-dham">Char Dham Yatra</Link></li>
-            <li><Link href="/packages/rameshwaram">Rameshwaram Tour</Link></li>
-            <li><Link href="/packages/goa">Goa Beach Tour</Link></li>
-            <li><Link href="/packages/kashmir">Kashmir Tour</Link></li>
-            <li><Link href="/packages/kerala">Kerala Backwaters</Link></li>
+            {packages.slice(0,5).map((pkg) => (
+              <li key={pkg.id}><Link href={`/itinerary/${pkg.id}`}>{pkg.title}</Link></li>
+            ))}
           </ul>
         </Box>
       </Box>

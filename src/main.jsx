@@ -4,6 +4,7 @@ import './index.css';
 import App from './App.jsx';
 import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
+import { TourProvider } from './TourContext.jsx';
 
 const rootElement = document.getElementById('root');
 
@@ -24,7 +25,7 @@ if (rootElement.hasChildNodes()) {
   root.render(
     <BrowserRouter>
     <HelmetProvider>
-      <App />
+      <TourProvider><App /></TourProvider>
     </HelmetProvider></BrowserRouter>
   );
 }

@@ -58,7 +58,7 @@ const EnquiryForm = () => {
 
   return (
     <div className="enquiry-container">
-      <h2 className="enquiry-title">Enquiry Form</h2>
+      <h2 className="enquiry-title">Contact Us</h2>
 
       <form onSubmit={handleSubmit} className="enquiry-form">
         <input
