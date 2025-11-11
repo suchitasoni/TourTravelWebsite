@@ -9,7 +9,7 @@
 }
 
 .admin-content {
-  padding: 25px;
+  padding: 25px 5px;
   flex-grow: 1;
 }
 .admin-nav {
@@ -70,6 +70,7 @@
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
 }
 
 .enquiries-table {
@@ -194,6 +195,7 @@ select {
 
 .metrics-section {
   margin-top: 30px;
+  overflow-x: auto;
 }
 
 .metrics-table {
@@ -230,16 +232,17 @@ select {
 
 /* Modal Styles */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
+    position: fixed;
+    top: 0px;
+    left: 0;
+    overflow: auto;
+    width: 100%;
+    height: auto;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
 }
 
 .modal-content {
@@ -248,7 +251,7 @@ select {
   padding: 25px;
   border-radius: 12px;
   max-width: 500px;
-  width: 90%;
+  width: 75%;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
@@ -263,6 +266,8 @@ select {
   list-style: none;
   padding: 0;
   margin-top: 15px;
+  height: 67vh;
+  overflow: auto;
 }
 
 .session-list li {
@@ -395,7 +400,7 @@ input[type="file"] {
   background: #d9363e;
 }
 .packages-admin-container {
-    padding: 30px;
+    padding: 30px 0;
     color: #333;
     background: #fff;
     font-family: "Poppins", sans-serif;
@@ -456,5 +461,9 @@ input[type="file"] {
 
   .add-package-title {
     font-size: 1.5rem;
+  }
+  .admin-tabs{
+    flex-direction: column;
+    gap: 5px;
   }
 }
