@@ -3,6 +3,9 @@ import { signInWithEmailAndPassword, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../../firebase";
 import { useNavigate } from "react-router-dom";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Button } from "@mui/material";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -11,6 +14,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -42,13 +46,23 @@ const AdminLogin = () => {
       setLoading(false);
     }
   };
+  const handleToggle = () => {
+    const passwordInput = document.getElementById("password");
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+    // Change the button text
+    setShowPassword(!showPassword);
+  };
 
   return (
     <div style={styles.container}>
       <div style={styles.card}>
         <h2 style={{ marginBottom: "20px" }}>Admin Login</h2>
 
-        <form onSubmit={handleLogin} style={{ width: "100%" }}>
+        <form onSubmit={handleLogin} style={{ width: "100%", position: 'relative' }}>
           <input
             type="email"
             placeholder="Admin Email"
@@ -58,16 +72,19 @@ const AdminLogin = () => {
           />
 
           <input
+            id="password"
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             style={styles.input}
           />
-
+          <Button style={{position: 'absolute',right: '10px',bottom: '61px',color: 'black',border: 'none',backgroundColor: 'transparent'}} type="button" id="togglePassword" onClick={handleToggle}>
+            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+          </Button>
           {error && <p style={styles.error}>{error}</p>}
 
-          <button type="submit" style={styles.button} disabled={loading}>
+          <button type="submit" style={styles.submitButton} disabled={loading}>
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
@@ -97,14 +114,16 @@ const styles = {
     textAlign: "center",
   },
   input: {
-    width: "100%",
-    padding: "12px",
-    marginBottom: "15px",
-    fontSize: "16px",
-    borderRadius: "8px",
-    border: "1px solid #ccc",
+    width: '90%',
+    padding: '12px',
+    backgroundColor: '#fff',
+    color: '#000',
+    marginBottom: '15px',
+    fontSize: '16px',
+    borderRadius: '8px',
+    border: '1px solid rgb(204, 204, 204)'
   },
-  button: {
+  submitButton: {
     width: "100%",
     padding: "12px",
     fontSize: "16px",

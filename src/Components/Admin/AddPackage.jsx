@@ -12,8 +12,8 @@ const AddPackage = ({pkg}) => {
     id: "",
     title: "",
     description: "",
-    category: "",
-    region: "",
+    category: "Spiritual",
+    region: "North India",
     duration: "",
     price: "",
     imageUrl: "",
@@ -145,6 +145,7 @@ const handleSubmit = async (e) => {
               onChange={handleChange}
               fullWidth
               SelectProps={{ native: true }}
+              defaultValue="Spiritual"
             >
               <option value="Spiritual">Spiritual</option>
               <option value="Hill Station">Hill Station</option>
