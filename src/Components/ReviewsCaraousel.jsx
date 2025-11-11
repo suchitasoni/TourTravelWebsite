@@ -71,7 +71,7 @@ const ReviewsCarousel = () => {
         <div className="review-carousel-first-div">
             {agencyInfo && (
             <div className="overall-rating-area">
-            <h2>Our Success Story!"</h2>
+            <h2>Our Success Story!</h2>
             <div className="overall-rating-value">
                 ⭐ {agencyInfo.averageRating || 0} / 5 &nbsp;
                 <span className="small">

@@ -84,15 +84,17 @@ export default function Packages() {
                   <Typography variant="body2" className="duration-badge">
                     {pkg.duration}
                   </Typography>
-                  <Typography variant="h6" fontWeight={600}>
-                    {pkg.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" mt={1}>
-                    {pkg.description}
-                  </Typography>
-                  <Typography variant="body1" fontWeight={600} sx={{ mt: 1 }}>
-                    {pkg.price > 0 ? `Starting at ₹ ${pkg.price} /person` : "Coming Soon"}
-                  </Typography>
+                  <div style={{display: 'flex',flexDirection: 'column',minHeight: '163px',justifyContent: 'space-around'}}>
+                    <Typography variant="h6" fontWeight={600}>
+                      {pkg.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" mt={1}>
+                      {pkg.description}
+                    </Typography>
+                    <Typography variant="body1" fontWeight={600} sx={{ mt: 1 }}>
+                      {pkg.price > 0 ? `Starting at ₹ ${pkg.price} /person` : "Coming Soon"}
+                    </Typography>
+                  </div>
                 </CardContent>
               </Card>
             </Link>
