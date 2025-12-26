@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Roboto","Helvetica","Arial",sans-serif !important;
   line-height: 1.5;
   font-weight: 400;
 
@@ -37,19 +37,19 @@
 }
 
 h1 { 
-  font-family: 'Playfair Display', serif;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   letter-spacing: 1px;
   font-size: var(--fs-h1);
    margin: 0; 
 }
 h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   letter-spacing: 1px;
    font-size: var(--fs-h2);
     margin: 0;
   }
 h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
   letter-spacing: 1px;
    font-size: var(--fs-h3); 
    margin: 0; 

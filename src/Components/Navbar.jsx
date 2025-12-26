@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -15,10 +15,11 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import "./Navbar.css";
+import { useRenderCount } from "../TourDataContext";
 
-export default function Navbar() {
+const Navbar = ()=>{
   const [mobileOpen, setMobileOpen] = useState(false);
-
+  useRenderCount("Navbar");
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -104,4 +105,6 @@ export default function Navbar() {
       </Drawer>
     </Box>
   );
-}
+};
+
+export default memo(Navbar);

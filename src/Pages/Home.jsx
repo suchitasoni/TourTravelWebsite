@@ -4,13 +4,14 @@ import "./Home.css";
 import Packages from "../Components/Packages";
 import ReviewsCarousel from "../Components/ReviewsCaraousel.jsx";
 import HowItWorks from "../Components/HowItWorks.jsx";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { logEvent } from "firebase/analytics";
 import { analytics } from "../firebase.js";
 import Navbar from "../Components/Navbar.jsx";
+import { useRenderCount } from "../TourDataContext.jsx";
 
-export default function Home({recordVisit}) {
-
+function Home({recordVisit}) {
+  useRenderCount("Home");
   useEffect(() => {
     logEvent(analytics, "page_view", { page: "Packages" });
     recordVisit("Home-page");
@@ -68,3 +69,5 @@ export default function Home({recordVisit}) {
     </>
   );
 }
+
+export default memo(Home);

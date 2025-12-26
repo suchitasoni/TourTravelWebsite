@@ -1,9 +1,10 @@
 import React from "react";
+import { useRenderCount } from "../TourDataContext";
 
 const GoogleReviewsEmbed = () => {
   const iframeSrc =
     "https://3a5fb4d78bd04ff1824630f8bc174a40.elf.site";
-
+  useRenderCount("GoogleReviewsEmbed");
   return (
     <div style={{marginTop:'73px'}}>
       <div></div>

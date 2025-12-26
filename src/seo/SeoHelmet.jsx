@@ -1,6 +1,9 @@
 import { Helmet } from "react-helmet-async";
+import { useRenderCount } from "../TourDataContext";
+import { memo } from "react";
 
-export default function SEOHelmet({ title, description, image, url }) {
+function SEOHelmet({ title, description, image, url }) {
+  useRenderCount("SEOHelmet");
   return (
     <Helmet>
       <title>{title}</title>
@@ -12,3 +15,4 @@ export default function SEOHelmet({ title, description, image, url }) {
     </Helmet>
   );
 }
+export default memo(SEOHelmet);

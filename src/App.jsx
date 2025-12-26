@@ -9,7 +9,7 @@ import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { db } from './firebase'
 import { getSessionId } from './utils/session'
 import Gallery from './Components/Gallery'
-import ItineraryPage from './Components/ItineraryPage'
+// import ItineraryPage from './Components/ItineraryPage'
 import { Fab, Modal, Box } from "@mui/material";
 import ChatIcon from "@mui/icons-material/Chat";
 import CloseIcon from "@mui/icons-material/Close";
@@ -17,7 +17,9 @@ import EnquiryForm from "./Components/EnquiryForm";
 import { useState } from 'react'
 import Footer from "./Components/Footer.jsx";
 import Navbar from './Components/Navbar.jsx'
+import {Suspense, lazy} from "react";
 
+const ItineraryPage = lazy(() => import("./Components/ItineraryPage.jsx").then(module => ({ default: module.ItineraryPage })));
 function App() {
     const [open, setOpen] = useState(false);
     const location = useLocation();
@@ -38,15 +40,22 @@ function App() {
   return (
     <div className="App">
       {!hideLayout && <section id="navbar"><Navbar /></section>}
-      <Routes>
-        <Route path="/" element={<Home recordVisit={recordVisit}/>} />
-        <Route path='/admin' element={<AdminLogin />} />
-        <Route path='/adminDashboard' element={<Dashboard />} />
-        <Route path='/reviews' element={<GoogleReviewsEmbed />} />
-        <Route path='/contact' element={<ContactUs recordVisit={recordVisit} />} />
-        <Route path='/gallery' element={<Gallery />} />
-        <Route path="/itinerary/:id" element={<ItineraryPage />} />
-      </Routes>
+      <Suspense fallback={
+        <div className="global-loader-overlay">
+            <div className="spinner"></div>
+            <p>Loading...</p>
+        </div>
+      }>
+        <Routes>
+          <Route path="/" element={<Home recordVisit={recordVisit}/>} />
+          <Route path='/admin' element={<AdminLogin />} />
+          <Route path='/adminDashboard' element={<Dashboard />} />
+          <Route path='/reviews' element={<GoogleReviewsEmbed />} />
+          <Route path='/contact' element={<ContactUs recordVisit={recordVisit} />} />
+          <Route path='/gallery' element={<Gallery />} />
+          <Route path="/itinerary/:id" element={<ItineraryPage />} />
+        </Routes>
+      </Suspense>
       {!hideLayout && <section id="footer" className="footer"><Footer setOpen={setOpen} /></section>}
       {!hideLayout && <div>
         <Fab
