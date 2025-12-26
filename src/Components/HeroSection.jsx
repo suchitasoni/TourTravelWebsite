@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import "./Hero.css";
 import { IconButton } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useHref, useNavigate } from "react-router-dom";
+import { useRenderCount } from "../TourDataContext";
 
 const images = [
   "https://res.cloudinary.com/dt5wgcgwl/image/upload/v1762098016/a7qewugz40xem1yj3i7b.png",
@@ -11,14 +12,17 @@ const images = [
 ];
 
 const HeroSection = () => {
-  const [index, setIndex] = useState(0);
+  useRenderCount("HeroSection");
+  const imgRef = useRef(null);
+  let currentIndex = 0;
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
+    const interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      imgRef.current.src = images[currentIndex];
     }, 4000);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, []);
 
    const handlePackagesNavigation = () => {
@@ -32,18 +36,21 @@ const HeroSection = () => {
   };
 
   const nextSlide = () => {
-    setIndex((prev) => (prev + 1) % images.length);
+    currentIndex = (currentIndex + 1) % images.length;
+    imgRef.current.src = images[currentIndex];
   };
 
   const prevSlide = () => {
-    setIndex((prev) => (prev - 1 + images.length) % images.length);
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    imgRef.current.src = images[currentIndex];
   };
 
   return (
     <div className="hero-banner">
-      <img style={{height: '100%', width: '100%', objectFit: 'cover'}}
-        src={images[index]}
+      <img ref={imgRef}
+        src={images[0]}
         alt="Travel destination"
+        className="hero-image"
       />
       <div className="absolute inset-0 bg-black bg-opacity-50"></div>
       <div className="hero-text">
@@ -77,4 +84,4 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;
+export default memo(HeroSection);

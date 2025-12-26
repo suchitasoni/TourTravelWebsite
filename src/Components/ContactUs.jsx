@@ -2,11 +2,13 @@ import './Contact.css';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import CallRoundedIcon from '@mui/icons-material/CallRounded';
 import EnquiryForm from './EnquiryForm';
-import { use, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useRenderCount } from '../TourDataContext';
 
 export default function ContactUs({recordVisit}) {
     const encoded = encodeURIComponent("Hi, I would like to enquire about your travel packages.");
     const adminPhone = "919300304422";
+    useRenderCount("ContactUs");
     useEffect(() => {
       recordVisit("Contact-us-page");
     }, []);

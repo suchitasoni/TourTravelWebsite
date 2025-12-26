@@ -1,35 +1,56 @@
-import { useState, useEffect } from "react";
-import { Tabs, Tab, Card, CardContent, CardMedia, Typography, Box, Skeleton } from "@mui/material";
+import { useState, useEffect, memo } from "react";
+import {
+  Tabs,
+  Tab,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
+  Skeleton
+} from "@mui/material";
 import { Helmet } from "react-helmet-async";
 import "./Packages.css";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../firebase";
 import { Link } from "react-router-dom";
-import { useTourDetails } from "../TourContext";
+import { useRenderCount, useTourData } from "../TourDataContext";
+import { useTourUI } from "../TourUIContext";
 
-export default function Packages() {
+function Packages() {
   const [activeTab, setActiveTab] = useState("All");
-  const {packages, loading, categories, filteredPackages, setFilteredPackages} = useTourDetails();
-  const handleTabChange = (event, newValue) => setActiveTab(newValue);
+  // const [loaded, setLoaded] = useState(false);
 
+  const { packages, loading, categories } = useTourData();
+  const { filteredPackages, setFilteredPackages } = useTourUI();
+
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+  useRenderCount("Packages");
+  // Trigger flip animation once component mounts
+  // useEffect(() => {
+  //   setLoaded(true);
+  // }, []);
+
+  // Filter packages by category
   useEffect(() => {
-    if (activeTab == "All") {
+    if (activeTab === "All") {
       setFilteredPackages(packages);
-    }
-    else{
-      const filtered = packages.filter((pkg) => pkg.category === activeTab);
+    } else {
+      const filtered = packages.filter(
+        (pkg) => pkg.category === activeTab
+      );
       setFilteredPackages(filtered);
     }
-  }, [activeTab]);
+  }, [activeTab, packages]);
 
   return (
     <div id="packages-section" className="packages-section">
-      {/* ✅ SEO Optimization */}
+      {/* SEO */}
       <Helmet>
         <title>Tour Packages by Category | Explore India & Beyond</title>
         <meta
           name="description"
-          content="Browse our curated tour packages by category including Spiritual, Hill Stations, Beach, Nature, and International destinations."
+          content="Browse curated tour packages including Spiritual, Hill Stations, Beaches, Nature, and International destinations."
         />
       </Helmet>
 
@@ -45,7 +66,6 @@ export default function Packages() {
           indicatorColor="primary"
           variant="scrollable"
           scrollButtons="auto"
-          aria-label="package categories"
         >
           {categories.map((cat) => (
             <Tab key={cat} label={cat} value={cat} />
@@ -54,58 +74,85 @@ export default function Packages() {
       </Box>
 
       <Box className="carousel-container">
-        <button className="scroll-btn left" onClick={() => {
-          document.querySelector('.carousel-inner').scrollBy({ left: -320, behavior: 'smooth' });
-        }}>‹</button>
+        <button
+          className="scroll-btn left"
+          onClick={() =>
+            document
+              .querySelector(".carousel-inner")
+              .scrollBy({ left: -320, behavior: "smooth" })
+          }
+        >
+          ‹
+        </button>
 
-        <div className="carousel-inner">
+        <div className="carousel-inner" key={activeTab}>
           {loading ? (
-          <div className="skeleton-container">
-            {[...Array(3)].map((_, i) => (
-              <Box key={i} className="skeleton-card">
-                <Skeleton variant="rectangular" width={280} height={180} />
-                <Skeleton variant="text" sx={{ mt: 1, width: "80%" }} />
-                <Skeleton variant="text" width="60%" />
-                <Skeleton variant="text" width="40%" />
-              </Box>
-            ))}
+            <div className="skeleton-container">
+              {[...Array(3)].map((_, i) => (
+                <Box key={i} className="skeleton-card">
+                  <Skeleton variant="rectangular" width={280} height={180} />
+                  <Skeleton variant="text" sx={{ mt: 1, width: "80%" }} />
+                  <Skeleton variant="text" width="60%" />
+                  <Skeleton variant="text" width="40%" />
+                </Box>
+              ))}
             </div>
           ) : (
-          filteredPackages.map((pkg) => (
-            <Link key={pkg.id} to={`/itinerary/${pkg.id}`}>
-              <Card key={pkg.id} className="package-card carousel-card">
-                <CardMedia
-                  component="img"
-                  height="180"
-                  image={pkg.imageUrl}
-                  alt={pkg.title}
-                />
-                <CardContent>
-                  <Typography variant="body2" className="duration-badge">
-                    {pkg.duration}
-                  </Typography>
-                  <div style={{display: 'flex',flexDirection: 'column',minHeight: '163px',justifyContent: 'space-around'}}>
-                    <Typography variant="h6" fontWeight={600}>
-                      {pkg.title}
+            filteredPackages.map((pkg, index) => (
+              <Link key={pkg.id} to={`/itinerary/${pkg.id}`}>
+                <Card
+                  className={`package-card carousel-card ${
+                   "flip-in"
+                  }`}
+                  style={{ animationDelay: `${index == 0 ? 500 : index * 500}ms` }}
+                >
+                  <CardMedia
+                    component="img"
+                    height="180"
+                    image={pkg.imageUrl}
+                    alt={pkg.title}
+                  />
+
+                  <CardContent>
+                    <Typography className="duration-badge">
+                      {pkg.duration}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" mt={1}>
-                      {pkg.description}
-                    </Typography>
-                    <Typography variant="body1" fontWeight={600} sx={{ mt: 1 }}>
-                      {pkg.price > 0 ? `Starting at ₹ ${pkg.price} /person` : "Coming Soon"}
-                    </Typography>
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))
-        )}
+
+                    <div className="card-content-wrapper">
+                      <Typography variant="h6" fontWeight={600}>
+                        {pkg.title}
+                      </Typography>
+
+                      <Typography variant="body2" color="text.secondary">
+                        {pkg.description}
+                      </Typography>
+
+                      <Typography variant="body1" fontWeight={600}>
+                        {pkg.price > 0
+                          ? `Starting at ₹ ${pkg.price} /person`
+                          : "Coming Soon"}
+                      </Typography>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))
+          )}
         </div>
 
-        <button className="scroll-btn right" onClick={() => {
-          document.querySelector('.carousel-inner').scrollBy({ left: 320, behavior: 'smooth' });
-        }}>›</button>
+        <button
+          className="scroll-btn right"
+          onClick={() =>
+            document
+              .querySelector(".carousel-inner")
+              .scrollBy({ left: 320, behavior: "smooth" })
+          }
+        >
+          ›
+        </button>
       </Box>
     </div>
   );
 }
+
+export default memo(Packages);

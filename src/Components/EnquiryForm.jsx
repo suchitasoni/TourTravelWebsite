@@ -3,13 +3,14 @@ import { analytics, db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { logEvent } from "firebase/analytics";
 import { getSessionId } from "../utils/session";
+import { useRenderCount } from "../TourDataContext";
 
 const EnquiryForm = () => {
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [destination, setDestination] = useState("");
   const [message, setMessage] = useState("");
-
+  useRenderCount("EnquiryForm");
   const handleSubmit = async (e) => {
     e.preventDefault();
 

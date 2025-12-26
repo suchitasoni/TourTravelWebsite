@@ -1,9 +1,11 @@
 import { Box, Typography, Link, IconButton } from "@mui/material";
 import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
-import { useTourDetails } from "../TourContext";
+import {useRenderCount, useTourData } from "../TourDataContext";
+import { memo } from "react";
 
-export default function Footer({setOpen}) {
-  const {packages} = useTourDetails();
+function Footer({setOpen}) {
+  const {packages} = useTourData();
+  useRenderCount("Footer");
   return (
     <Box className="footer-container">
       <Box className="footer-links">
@@ -50,3 +52,5 @@ export default function Footer({setOpen}) {
     </Box>
   );
 }
+
+export default memo(Footer);
