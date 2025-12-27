@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Stepper, Step, StepLabel, Button, TextField, Checkbox, FormControlLabel } from "@mui/material";
+import Stepper from "@mui/material/Stepper";
+import Step from "@mui/material/Step";
+import StepLabel from "@mui/material/StepLabel";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 

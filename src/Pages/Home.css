@@ -9,6 +9,9 @@
     padding: 15px;
 }
 /* how it works section */
+#howitworks {
+  min-height: 400px;
+}
 .howitworks-section {
   padding: 4rem 1rem;
 }

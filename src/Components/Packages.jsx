@@ -1,19 +1,23 @@
 import { useState, useEffect, memo } from "react";
-import {
-  Tabs,
-  Tab,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Box,
-  Skeleton
-} from "@mui/material";
-import { Helmet } from "react-helmet-async";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import Skeleton from "@mui/material/Skeleton";
+import {Helmet} from "react-helmet-async";
 import "./Packages.css";
 import { Link } from "react-router-dom";
 import { useRenderCount, useTourData } from "../TourDataContext";
 import { useTourUI } from "../TourUIContext";
+
+const getOptimizedImage = (url) =>
+  url.replace(
+    "/upload/",
+    "/upload/c_fill,w_400,h_250,q_auto,f_auto/"
+  );
 
 function Packages() {
   const [activeTab, setActiveTab] = useState("All");
@@ -26,10 +30,21 @@ function Packages() {
     setActiveTab(newValue);
   };
   useRenderCount("Packages");
-  // Trigger flip animation once component mounts
-  // useEffect(() => {
-  //   setLoaded(true);
-  // }, []);
+
+useEffect(() => {
+  if (!filteredPackages.length) return;
+
+  const cards = document.querySelectorAll(".package-card.flip-in");
+
+  cards.forEach((el, index) => {
+    el.classList.remove("animate"); // reset
+    el.style.animationDelay = `${index * 120}ms`;
+
+    requestAnimationFrame(() => {
+      el.classList.add("animate");
+    });
+  });
+}, [filteredPackages]);
 
   // Filter packages by category
   useEffect(() => {
@@ -104,13 +119,16 @@ function Packages() {
                   className={`package-card carousel-card ${
                    "flip-in"
                   }`}
-                  style={{ animationDelay: `${index == 0 ? 500 : index * 500}ms` }}
+                  style={{ animationDelay: "120ms" }}
                 >
                   <CardMedia
                     component="img"
                     height="180"
-                    image={pkg.imageUrl}
+                    image={getOptimizedImage(pkg.imageUrl)}
                     alt={pkg.title}
+                    loading="lazy"
+                    width="300"
+                    fetchpriority="low"
                   />
 
                   <CardContent>

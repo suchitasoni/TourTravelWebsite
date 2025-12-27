@@ -5,12 +5,13 @@ import GoogleReviewsEmbed from './Components/GoogleReviewsEmbed'
 import ContactUs from './Components/ContactUs'
 import AdminLogin from './Components/Admin/AdminLogin'
 import Dashboard from './Components/Admin/Dashboard'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { db } from './firebase'
 import { getSessionId } from './utils/session'
 import Gallery from './Components/Gallery'
-// import ItineraryPage from './Components/ItineraryPage'
-import { Fab, Modal, Box } from "@mui/material";
+import Fab from "@mui/material/Fab";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 import ChatIcon from "@mui/icons-material/Chat";
 import CloseIcon from "@mui/icons-material/Close";
 import EnquiryForm from "./Components/EnquiryForm";

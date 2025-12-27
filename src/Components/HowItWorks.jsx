@@ -1,4 +1,8 @@
-import { Box, Typography, Grid, Card, CardContent } from "@mui/material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 import FlightTakeoffIcon from "@mui/icons-material/FlightTakeoff";
 import ChatIcon from "@mui/icons-material/Chat";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
