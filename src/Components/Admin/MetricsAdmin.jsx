@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { collection, getDocs, query, where, orderBy } from "firebase/firestore";
 import { db } from "../../firebase";
-// import {
-//   BarChart,
-//   Bar,
-//   XAxis,
-//   YAxis,
-//   Tooltip,
-//   ResponsiveContainer,
-//   CartesianGrid,
-// } from "recharts";
-import BarChart from "recharts/es6/chart/BarChart";
-import Bar from "recharts/es6/cartesian/Bar";
-import XAxis from "recharts/es6/cartesian/XAxis";
-import YAxis from "recharts/es6/cartesian/YAxis";
-import Tooltip from "recharts/es6/component/Tooltip";
-import ResponsiveContainer from "recharts/es6/component/ResponsiveContainer";
-import CartesianGrid from "recharts/es6/cartesian/CartesianGrid";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  CartesianGrid,
+} from "recharts";
 import { formatDistanceToNow } from "date-fns";
 
 export default function MetricsAdmin() {
