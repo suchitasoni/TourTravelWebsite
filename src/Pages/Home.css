@@ -278,6 +278,9 @@
 }
 
 @media (max-width: 600px) {
+  #howitworks {
+    min-height: 900px;
+  }
   .howitworks-section {
     padding: 15px 10px 30px;
   }
@@ -305,5 +308,10 @@
   .contact-modal {
     width: 95%;
     padding: 20px;
+  }
+}
+@media (max-width: 500px) {
+  #howitworks {
+    min-height: 900px;
   }
 }
