@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
 import { useNavigate } from "react-router-dom";
 import "./Admin.css";
 import ViewPackages from "./ViewPackages";
 import EnquiriesAdmin from "./EnquiriesAdmin";
-import MetricsAdmin from "./MetricsAdmin";
 import GalleryAdmin from "./GalleryAdmin";
 
+const MetricsAdmin = React.lazy(() => import("./MetricsAdmin"));
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState("packages");
 
@@ -18,7 +18,7 @@ export default function Dashboard() {
       <div className="admin-content">
         {activeTab === "packages" && <ViewPackages />}
         {activeTab === "enquiries" && <EnquiriesAdmin />}
-        {activeTab === "metrics" && <MetricsAdmin />}
+        {activeTab === "metrics" && <Suspense fallback={<div>Loading Metrics...</div>}><MetricsAdmin /></Suspense>}
         {activeTab === "gallery" && <GalleryAdmin />}
       </div>
     </div>

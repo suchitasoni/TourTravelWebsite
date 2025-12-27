@@ -1,5 +1,10 @@
-import { Box, Typography, Link, IconButton } from "@mui/material";
-import { Facebook, Instagram, WhatsApp } from "@mui/icons-material";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import IconButton from "@mui/material/IconButton";
+import Facebook from "@mui/icons-material/Facebook";
+import Instagram from "@mui/icons-material/Instagram";
+import WhatsApp from "@mui/icons-material/WhatsApp";
 import {useRenderCount, useTourData } from "../TourDataContext";
 import { memo } from "react";
 

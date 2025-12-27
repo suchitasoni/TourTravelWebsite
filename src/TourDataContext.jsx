@@ -42,12 +42,12 @@ export const TourDataProvider = ({ children }) => {
 
   return (
     <TourDataContext.Provider value={value}>
-      {loading && (
+      {/* {loading && (
         <div className="global-loader-overlay">
           <div className="spinner"></div>
           <p>Loading...</p>
         </div>
-      )}
+      )} */}
       {children}
     </TourDataContext.Provider>
   );

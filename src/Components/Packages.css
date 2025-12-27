@@ -42,11 +42,11 @@
 
   /* Initial state before animation */
   transform: rotateY(90deg);
-  opacity: 0;
+  opacity: 1;
 }
 
 /* Flip animation */
-.package-card.flip-in {
+.package-card.flip-in.animate {
   animation: flipIn 0.8s ease forwards;
 }
 
@@ -105,6 +105,8 @@
   border-radius: 50%;
   position: absolute;
   z-index: 2;
+  width: 44px;
+  height: 44px;
 }
 
 .scroll-btn.left {

@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Tabs, Tab, Box, Button } from "@mui/material";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import AddPackage from "./AddPackage";
 import { auth, db } from "../../firebase";
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";

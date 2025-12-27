@@ -2,7 +2,10 @@ import {memo, useEffect, useRef, useState } from "react";
 import { db } from "../firebase";
 import { collection, query, orderBy,getDocs, doc, getDoc,
 } from "firebase/firestore";
-import { Avatar, Button, IconButton, Typography,} from "@mui/material";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "./Reviews.css";
