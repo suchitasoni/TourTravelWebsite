@@ -1,115 +1,169 @@
-import { useState, useEffect } from "react";
+import {memo, useEffect, useRef, useState } from "react";
 import { db } from "../firebase";
-import { collection, onSnapshot, query, orderBy, doc, getDoc, getDocs } from "firebase/firestore";
-import "./Reviews.css";
-import { Avatar, Button, IconButton, Typography } from "@mui/material";
+import { collection, query, orderBy,getDocs, doc, getDoc,
+} from "firebase/firestore";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import './Reviews.css';
+import "./Reviews.css";
+import { useRenderCount } from "../TourDataContext";
 
 const ReviewsCarousel = () => {
   const [reviews, setReviews] = useState([]);
   const [agencyInfo, setAgencyInfo] = useState(null);
-  const [index, setIndex] = useState(0);
 
+  const indexRef = useRef(0);
+  const cardRef = useRef(null);
+
+  useRenderCount("ReviewsCarousel");
+
+  // Fetch data once
   useEffect(() => {
-  const fetchReviews = async () => {
-    try {
-      const q = query(collection(db, "reviews"), orderBy("date", "desc"));
+    const fetchReviews = async () => {
+      const q = query(
+        collection(db, "reviews"),
+        orderBy("date", "desc")
+      );
       const snap = await getDocs(q);
+      setReviews(
+        snap.docs.map((d) => ({ id: d.id, ...d.data() }))
+      );
+    };
 
-      const data = snap.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      setReviews(data);
-    } catch (error) {
-      console.log("Error fetching reviews:", error);
-    }
-  };
     const fetchAgencyInfo = async () => {
-      try {
-        const ref = doc(db, "agencyInfo", "overview");
-        const snap = await getDoc(ref);
-
-        if (snap.exists()) {
-          setAgencyInfo(snap.data());
-        }
-      } catch (err) {
-        console.log("Error loading agency info:", err);
-      }
+      const ref = doc(db, "agencyInfo", "overview");
+      const snap = await getDoc(ref);
+      if (snap.exists()) setAgencyInfo(snap.data());
     };
 
     fetchAgencyInfo();
-  fetchReviews();
-}, []);
+    fetchReviews();
+  }, []);
+
+  // Auto slide WITHOUT re-render
   useEffect(() => {
     if (reviews.length === 0) return;
 
+    const updateCard = (i) => {
+      const r = reviews[i];
+      if (!cardRef.current) return;
+
+      cardRef.current.querySelector(".reviewer-name").textContent = r.name;
+      cardRef.current.querySelector(".review-date").textContent = r.date;
+      cardRef.current.querySelector(".review-text").textContent = r.text;
+      cardRef.current.href = r.reviewLink || "#";
+      cardRef.current.querySelector(".rating-stars").textContent =
+        "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+    };
+
+    updateCard(0);
+
     const interval = setInterval(() => {
-      setIndex((prev) => (prev === reviews.length - 1 ? 0 : prev + 1));
+      indexRef.current =
+        indexRef.current === reviews.length - 1
+          ? 0
+          : indexRef.current + 1;
+
+      updateCard(indexRef.current);
     }, 5000);
 
     return () => clearInterval(interval);
   }, [reviews]);
 
+  // Manual controls (still no state)
   const prev = () => {
-    setIndex((prevIndex) => (prevIndex === 0 ? reviews.length - 1 : prevIndex - 1));
+    indexRef.current =
+      indexRef.current === 0
+        ? reviews.length - 1
+        : indexRef.current - 1;
+    updateInstant();
   };
 
   const next = () => {
-    setIndex((prevIndex) => (prevIndex === reviews.length - 1 ? 0 : prevIndex + 1));
+    indexRef.current =
+      indexRef.current === reviews.length - 1
+        ? 0
+        : indexRef.current + 1;
+    updateInstant();
+  };
+
+  const updateInstant = () => {
+    const r = reviews[indexRef.current];
+    if (!cardRef.current) return;
+
+    cardRef.current.querySelector(".reviewer-name").textContent = r.name;
+    cardRef.current.querySelector(".review-date").textContent = r.date;
+    cardRef.current.querySelector(".review-text").textContent = r.text;
+    cardRef.current.href = r.reviewLink || "#";
+    cardRef.current.querySelector(".rating-stars").textContent =
+      "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
   };
 
   if (reviews.length === 0) return null;
 
-  const r = reviews[index];
+  const r = reviews[0]; // initial render only
 
   return (
-    <div className="review-carousel-flex"> 
-        <div className="review-carousel-first-div">
+    <div className="review-carousel-flex">
+      {/* LEFT INFO */}
+      <div className="review-carousel-first-div">
             {agencyInfo && (
             <div className="overall-rating-area">
-            <h2>Our Success Story!</h2>
+            <h2 style={{fontWeight:400}}>Our Success Story!</h2>
             <div className="overall-rating-value">
                 ⭐ {agencyInfo.averageRating || 0} / 5 &nbsp;
                 <span className="small">
                 ({agencyInfo.totalReviews} reviews)
                 </span>
-                <div>Customer satisfaction is our major goal.</div><div> See what our customers are saying about us.</div>
             </div>
-            <Button variant="contained" color="primary" href="/reviews">See All</Button>
+            <div style={{justifyItems: 'center',margin: '20px 0px'}}><div>Customer satisfaction is our major goal.</div><div> See what our customers are saying about us.</div></div>
+            <Button style={{textTransform: 'none'}} variant="contained" color="primary" href="/reviews">See All Reviews</Button>
             </div>
       )}
-        </div>
-        <div className="review-carousel-container">
-            <a className="review-card" href={r.reviewLink} target="_blank" rel="noopener noreferrer">
-                <div className="review-header">
-                <Avatar sx={{ bgcolor: 'gray' }}>{r.name.substr(0,1)}</Avatar>
-                <div>
-                    <h3 className="reviewer-name">{r.name}</h3>
-                    <Typography variant="body2" color="text.secondary" mt={1}>
-                    {r.date}
-                    </Typography>
-                    <div className="rating-stars">
-                    {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
-                    </div>
-                </div>
-                </div>
-                <Typography variant="body2" color="text.primary" mt={1}>
-                    {r.text}
-                </Typography>
-                {r.images?.length > 0 && (
-                <div className="review-images-wrapper">
-                    {r.images.map((img, i) => (
-                    <img key={i} src={img} className="review-image" alt="review-img" />
-                    ))}
-                </div>
-                )}
-            </a>
+      </div>
 
-            {/* Controls */}
+      {/* REVIEW CARD */}
+      <div className="review-carousel-container">
+        <a
+          ref={cardRef}
+          className="review-card"
+          href={r.reviewLink}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div className="review-header">
+            <Avatar sx={{ bgcolor: "gray" }}>
+              {r.name?.[0]}
+            </Avatar>
+            <div>
+              <h3 className="reviewer-name">{r.name}</h3>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className="review-date"
+              >
+                {r.date}
+              </Typography>
+              <div className="rating-stars">
+                {"★".repeat(r.rating)}
+                {"☆".repeat(5 - r.rating)}
+              </div>
+            </div>
+          </div>
+
+          <Typography
+            variant="body2"
+            color="text.primary"
+            className="review-text"
+          >
+            {r.text}
+          </Typography>
+        </a>
+
+        {/* Controls */}
             <IconButton
                 onClick={prev}
                 sx={{
@@ -121,8 +175,8 @@ const ReviewsCarousel = () => {
                 "&:hover": { backgroundColor: "rgba(255,255,255,0.7)" }
                 }}
             >
-                <ArrowBackIosNewIcon />
-            </IconButton>
+          <ArrowBackIosNewIcon />
+        </IconButton>
             <IconButton
                 onClick={next}
                 sx={{
@@ -134,13 +188,11 @@ const ReviewsCarousel = () => {
                 "&:hover": { backgroundColor: "rgba(255,255,255,0.7)" }
                 }}
             >
-                <ArrowForwardIosIcon />
-            </IconButton>
-            {/* <button onClick={prev} className="carousel-btn prev-btn">⟨</button>
-            <button onClick={next} className="carousel-btn next-btn">⟩</button> */}
-        </div>
+          <ArrowForwardIosIcon />
+        </IconButton>
+      </div>
     </div>
   );
 };
 
-export default ReviewsCarousel;
+export default memo(ReviewsCarousel);

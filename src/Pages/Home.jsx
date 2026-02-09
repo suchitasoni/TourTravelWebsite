@@ -1,16 +1,20 @@
 import HeroSection from "../Components/HeroSection";
 import SEOHelmet from "../seo/SeoHelmet";
 import "./Home.css";
-import Packages from "../Components/Packages";
 import ReviewsCarousel from "../Components/ReviewsCaraousel.jsx";
 import HowItWorks from "../Components/HowItWorks.jsx";
-import { useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 import { logEvent } from "firebase/analytics";
 import { analytics } from "../firebase.js";
-import Navbar from "../Components/Navbar.jsx";
+import { useRenderCount } from "../TourDataContext.jsx";
+import { Suspense, lazy } from "react";
+import { useInViewOnce } from "../useInViewOnce.js";
 
-export default function Home({recordVisit}) {
+const Packages = lazy(() => import("../Components/Packages.jsx"));
 
+function Home({recordVisit}) {
+  const { ref, isVisible } = useInViewOnce();
+    useRenderCount("Home");
   useEffect(() => {
     logEvent(analytics, "page_view", { page: "Packages" });
     recordVisit("Home-page");
@@ -53,10 +57,12 @@ export default function Home({recordVisit}) {
           <HeroSection />
         </section>
 
-        <section id="packages" className="popular-packages">
-          <div className="package-list">
+        <section id="packages" className="popular-packages" ref={ref}>
+          {isVisible && (
+          <Suspense fallback={<div style={{ height: 300 }} />}>
             <Packages />
-          </div>
+          </Suspense>
+        )}
         </section>
         <section id="howitworks" ><HowItWorks /></section>
         <section id="reviews" style={{padding: '5px 15px'}}>
@@ -68,3 +74,5 @@ export default function Home({recordVisit}) {
     </>
   );
 }
+
+export default memo(Home);

@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { db } from "../firebase";
 import { doc, getDoc } from "firebase/firestore";
 import EnquiryForm from "./EnquiryForm";
 import "../Components/Itinerary.css";
+import { useRenderCount } from "../TourDataContext";
 
 const ItineraryPage = () => {
   const { id  } = useParams(); // package id like "andaman"
   const navigate = useNavigate();
   const [pkg, setPkg] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  useRenderCount("ItineraryPage");
   useEffect(() => {
     const fetchPackage = async () => {
       try {
@@ -184,4 +185,4 @@ const btnStyle = {
   cursor: "pointer",
 };
 
-export default ItineraryPage;
+export {ItineraryPage};

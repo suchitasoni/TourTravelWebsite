@@ -1,10 +1,11 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
+import { useRenderCount } from "../TourDataContext";
 
 const Gallery = () => {
     const [images, setImages] = useState([]);
-
+    useRenderCount("Gallery");
   useEffect(() => {
     const fetchImages = async () => {
         const snap = await getDocs(collection(db, "gallery"));
