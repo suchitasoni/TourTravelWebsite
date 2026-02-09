@@ -20,6 +20,7 @@ const AddPackage = ({pkg}) => {
     description: "",
     category: "Spiritual",
     region: "North India",
+    priority: 1,
     duration: "",
     price: "",
     imageUrl: "",
@@ -177,6 +178,7 @@ const handleSubmit = async (e) => {
               <option value="West India">West India</option>
               <option value="International">International</option>
             </TextField>
+            <TextField label="Priority" name="priority" value={packageData.priority} onChange={handleChange} fullWidth type="number" inputProps={{ min: 1 }} />
             <TextField label="Duration" name="duration" value={packageData.duration} onChange={handleChange} fullWidth placeholder="6D/7N" />
             <TextField label="Price (INR)" name="price" value={packageData.price} onChange={handleChange} fullWidth />
             <div className="upload-section">

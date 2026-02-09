@@ -82,6 +82,7 @@ const ViewPackages = () => {
                   <th>Duration</th>
                   <th>Price</th>
                   <th>Visible</th>
+                  <th>Priority</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -94,6 +95,7 @@ const ViewPackages = () => {
                     <td>{pkg.duration}</td>
                     <td>₹{pkg.price}</td>
                     <td>{pkg.hide ? "No" : "Yes"}</td>
+                    <td>{pkg.priority}</td>
                     <td className="action-buttons">
                       <Button
                         variant="outlined"

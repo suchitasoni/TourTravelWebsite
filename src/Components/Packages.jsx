@@ -49,6 +49,7 @@ useEffect(() => {
   // Filter packages by category
   useEffect(() => {
     if (activeTab === "All") {
+      packages.sort((a,b) => a.priority - b.priority);
       setFilteredPackages(packages);
     } else {
       const filtered = packages.filter(
