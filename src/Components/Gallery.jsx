@@ -17,18 +17,18 @@ const Gallery = () => {
     });
   }, []);
 
-  return (
-    <div style={{marginTop:'73px'}}>
-        <h1>Gallery</h1>
-        <p>Welcome to the Gallery page. Explore our collection of travel photos!</p>
-        <div style={{display:'flex',flexWrap:'wrap'}}>
-            {images.map((img) => (
-                <div key={img.id} className="gallery-item">
-                    <img src={img.imageUrl} alt="Gallery" style={{width:'250px'}} />
-                </div>
-            ))}
+    return (
+        <div style={{marginTop:'73px'}}>
+            <h1>Gallery</h1>
+            <p>Welcome to the Gallery page. Explore our collection of travel photos!</p>
+            <div style={{display:'flex',flexWrap:'wrap'}}>
+                {images.map((img) => (
+                    <div key={img.id} className="gallery-item">
+                        <img src={img.imageUrl} alt="Gallery" style={{width:'250px', height:'250px', objectFit:'cover'}} />
+                    </div>
+                ))}
+            </div>
         </div>
-    </div>
-  );
+    );
 }
 export default Gallery;

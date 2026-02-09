@@ -8,7 +8,7 @@ export default function Footer({setOpen}) {
     <Box className="footer-container">
       <Box className="footer-links">
         <Box className="footer-top">
-            <Typography variant="h5" mb={2} className="footer-title">Maihar Travels</Typography>
+            <Typography variant="h5" mb={2} className="footer-title">Maihar Online</Typography>
             <Typography variant="body2" mb={2} className="footer-subtitle">
             Explore India’s most spiritual and scenic destinations with us.
             </Typography>
@@ -40,7 +40,7 @@ export default function Footer({setOpen}) {
 
       {/* Bottom Strip */}
       <Box className="footer-bottom">
-        <Typography variant="body2">© {new Date().getFullYear()} Maihar Travels | All Rights Reserved</Typography>
+        <Typography variant="body2">© {new Date().getFullYear()} Maihar Online | All Rights Reserved</Typography>
         <Box>
           <IconButton href="https://www.facebook.com" target="_blank"><Facebook/></IconButton>
           <IconButton href="https://www.instagram.com" target="_blank"><Instagram /></IconButton>

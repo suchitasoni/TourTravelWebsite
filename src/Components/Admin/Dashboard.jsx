@@ -37,7 +37,7 @@ const AdminNav = ({ activeTab, setActiveTab }) => {
 
   return (
     <div className="admin-nav">
-      <h2 className="admin-logo">Maihar Travels Admin</h2>
+      <h2 className="admin-logo">Maihar Online Admin</h2>
       <div className="admin-tabs">
         <button
           className={activeTab === "packages" ? "active" : ""}

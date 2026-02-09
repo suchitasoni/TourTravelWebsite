@@ -35,7 +35,7 @@ export default function Navbar() {
     <Box className="drawer-content" onClick={handleDrawerToggle}>
       <Box className="drawer-header">
         <Typography variant="h6" className="drawer-title">
-          Maihar Travels
+          Maihar Online
         </Typography>
         <IconButton onClick={handleDrawerToggle}>
           <CloseIcon sx={{ color: "#fff" }} />
@@ -58,7 +58,7 @@ export default function Navbar() {
         <Toolbar className="navbar-toolbar">
           {/* Logo / Brand */}
           <Typography variant="h6" className="navbar-title">
-            Maihar Travels
+            Maihar Online
           </Typography>
 
           {/* Desktop Menu */}
