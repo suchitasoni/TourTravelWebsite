@@ -9,6 +9,7 @@ import { analytics } from "../firebase.js";
 import { useRenderCount } from "../TourDataContext.jsx";
 import { Suspense, lazy } from "react";
 import { useInViewOnce } from "../useInViewOnce.js";
+import CharDhamPackage from "../Components/CharDhamPackage.jsx";
 
 const Packages = lazy(() => import("../Components/Packages.jsx"));
 
@@ -56,7 +57,9 @@ function Home({recordVisit}) {
         <section id="home" className="hero">
           <HeroSection />
         </section>
-
+        <section id="chardham">
+          <CharDhamPackage />
+        </section>
         <section id="packages" className="popular-packages" ref={ref}>
           {isVisible && (
           <Suspense fallback={<div style={{ height: 300 }} />}>

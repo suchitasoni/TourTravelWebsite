@@ -33,7 +33,7 @@ const Navbar = ()=>{
   const drawer = (
     <Box className="drawer-content" onClick={handleDrawerToggle}>
       <Box className="drawer-header">
-        <Typography variant="h6" className="drawer-title">
+        <Typography variant="h6" className="drawer-title" onClick={() => window.location.href = "/"}>
           Maihar Online
         </Typography>
         <IconButton onClick={handleDrawerToggle}>
@@ -56,7 +56,7 @@ const Navbar = ()=>{
       <AppBar position="fixed" className="navbar">
         <Toolbar className="navbar-toolbar">
           {/* Logo / Brand */}
-          <Typography variant="h6" className="navbar-title">
+          <Typography variant="h6" className="navbar-title" onClick={() => window.location.href = "/"}>
             Maihar Online
           </Typography>
 
