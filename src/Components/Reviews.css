@@ -115,6 +115,7 @@
     width: 90%;
     color: #333;
     place-self: center;
+    margin: auto;
     border-radius: 20px;
 }
 .overall-rating-value{
@@ -166,7 +167,7 @@
     flex-direction: column;
   }
   .review-carousel-container{
-    width: 100%;
+    width: 125%;
   }
   .review-carousel-first-div{
     text-align: center;
