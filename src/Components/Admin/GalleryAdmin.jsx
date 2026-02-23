@@ -51,6 +51,7 @@ const GalleryAdmin = () => {
           await addDoc(collection(db, "gallery"), {
             imageUrl: data.secure_url,
             createdAt: serverTimestamp(),
+            place: file.name.split(".")[0], 
           });
         }
       }

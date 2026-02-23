@@ -1,3 +1,60 @@
+/* ===============================
+   STATS SECTION
+   =============================== */
+
+/* Dark overlay */
+.stats-overlay {
+  position: relative;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Container */
+.stats-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+/* Individual stat */
+.stat-item {
+  flex: 1;
+  padding: 0px 10px 20px;
+  opacity: 1;
+  transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Vertical divider */
+.stat-item:not(:last-child) {
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Big number */
+.stat-item h2 {
+  font-size: 48px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+/* Description */
+.stat-item p {
+  font-size: 16px;
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+
+
 .review-carousel-container {
     position: relative;
     width: 50%;
@@ -75,6 +132,30 @@
 }
 .review-carousel-first-div{
   padding-left: 20px;
+}
+@media screen and (max-width: 900px) {
+
+  .stats-container {
+    gap: 30px;
+  }
+
+  .stat-item {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+  }
+
+  .stat-item:last-child {
+    border-bottom: none;
+  }
+
+  .stat-item h2 {
+    font-size: 36px;
+  }
+
+  .stat-item p {
+    font-size: 14px;
+  }
 }
 @media screen and (max-width: 768px) {
 

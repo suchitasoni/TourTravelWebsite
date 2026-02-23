@@ -293,6 +293,8 @@
 
   .chardham-features {
     grid-template-columns: 1fr;
+    font-size: 16px;
+    padding-left: 20px;
   }
 
   .chardham-btn {

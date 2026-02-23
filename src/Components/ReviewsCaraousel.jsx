@@ -109,7 +109,7 @@ const ReviewsCarousel = () => {
   return (
     <div className="review-carousel-flex">
       {/* LEFT INFO */}
-      <div className="review-carousel-first-div">
+      {/* <div className="review-carousel-first-div">
             {agencyInfo && (
             <div className="overall-rating-area">
             <h2 style={{fontWeight:400}}>Our Success Story!</h2>
@@ -123,6 +123,31 @@ const ReviewsCarousel = () => {
             <Button style={{textTransform: 'none'}} variant="contained" color="primary" href="/reviews">See All Reviews</Button>
             </div>
       )}
+      </div> */}
+      <div className="stats-overlay">
+        <div className="stats-container">
+
+          <div className="stat-item">
+            <h2>1,200+</h2>
+            <h5 style={{margin: 0}}>😊 Happy Customers</h5>
+          </div>
+
+          <div className="stat-item">
+            <h2>25+</h2>
+            <h5 style={{margin: 0}}>🎒 Tour Packages</h5>
+          </div>
+
+          <div className="stat-item">
+            <h2>20+</h2>
+            <h5 style={{margin: 0}}>🏨 Partner Hotels</h5>
+          </div>
+
+          <div className="stat-item">
+            <h2>50+</h2>
+            <h5 style={{margin: 0}}>📅 Room Bookings / Month</h5>
+          </div>
+
+        </div>
       </div>
 
       {/* REVIEW CARD */}

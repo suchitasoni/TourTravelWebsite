@@ -26,6 +26,7 @@ const Gallery = () => {
                 {images.map((img) => (
                     <div key={img.id} className="gallery-item">
                         <img src={img.imageUrl} alt="Gallery" style={{width:'250px', height:'250px', objectFit:'cover'}} />
+                        <h4 style={{justifySelf: 'center',margin:'0px'}}>{img.place}</h4>
                     </div>
                 ))}
             </div>
