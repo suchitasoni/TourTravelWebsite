@@ -129,22 +129,22 @@ const ReviewsCarousel = () => {
 
           <div className="stat-item">
             <h2>1,200+</h2>
-            <h5 style={{margin: 0}}>😊 Happy Customers</h5>
+            <h4 style={{margin: 0}}>😊 Happy Customers</h4>
           </div>
 
           <div className="stat-item">
             <h2>25+</h2>
-            <h5 style={{margin: 0}}>🎒 Tour Packages</h5>
+            <h4 style={{margin: 0}}>🎒 Tour Packages</h4>
           </div>
 
           <div className="stat-item">
             <h2>20+</h2>
-            <h5 style={{margin: 0}}>🏨 Partner Hotels</h5>
+            <h4 style={{margin: 0}}>🏨 Partner Hotels</h4>
           </div>
 
           <div className="stat-item">
             <h2>50+</h2>
-            <h5 style={{margin: 0}}>📅 Room Bookings / Month</h5>
+            <h4 style={{margin: 0}}>📅 Room Bookings / Month</h4>
           </div>
 
         </div>

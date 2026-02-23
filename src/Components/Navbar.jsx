@@ -12,6 +12,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import Facebook from "@mui/icons-material/Facebook";
+import Instagram from "@mui/icons-material/Instagram";
+import WhatsApp from "@mui/icons-material/WhatsApp";
 import "./Navbar.css";
 import { useRenderCount } from "../TourDataContext";
 
@@ -56,9 +59,44 @@ const Navbar = ()=>{
       <AppBar position="fixed" className="navbar">
         <Toolbar className="navbar-toolbar">
           {/* Logo / Brand */}
-          <Typography variant="h6" className="navbar-title" onClick={() => window.location.href = "/"}>
-            Maihar Online
-          </Typography>
+          <Box className="navbar-brand">
+  <Typography
+    variant="h6"
+    className="navbar-title"
+    onClick={() => (window.location.href = "/")}
+  >
+    Maihar Online
+  </Typography>
+
+  <Box className="navbar-social">
+    <IconButton
+      href="https://www.facebook.com"
+      target="_blank"
+      size="small"
+      className="social-icon"
+    >
+      <Facebook fontSize="small" />
+    </IconButton>
+
+    <IconButton
+      href="https://www.instagram.com"
+      target="_blank"
+      size="small"
+      className="social-icon"
+    >
+      <Instagram fontSize="small" />
+    </IconButton>
+
+    <IconButton
+      href="https://wa.me/919300304422"
+      target="_blank"
+      size="small"
+      className="social-icon"
+    >
+      <WhatsApp fontSize="small" />
+    </IconButton>
+  </Box>
+</Box>
 
           {/* Desktop Menu */}
           <Box className="nav-links">
