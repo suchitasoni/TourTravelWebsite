@@ -48,7 +48,7 @@ function App() {
         </div>
       }>
         <Routes>
-          <Route path="/" element={<Home recordVisit={recordVisit}/>} />
+          <Route path="/" element={<Home recordVisit={recordVisit} setOpen={setOpen} />} />
           <Route path='/admin' element={<AdminLogin />} />
           <Route path='/adminDashboard' element={<Dashboard />} />
           <Route path='/reviews' element={<GoogleReviewsEmbed />} />

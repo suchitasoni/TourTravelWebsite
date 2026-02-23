@@ -17,7 +17,7 @@
 .hero-image{
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
     animation: breathing-scale 5s ease-in-out infinite alternate;
 }
 @keyframes breathing-scale {

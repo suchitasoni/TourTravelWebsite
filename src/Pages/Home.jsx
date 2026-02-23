@@ -13,7 +13,7 @@ import CharDhamPackage from "../Components/CharDhamPackage.jsx";
 
 const Packages = lazy(() => import("../Components/Packages.jsx"));
 
-function Home({recordVisit}) {
+function Home({recordVisit, setOpen}) {
   const { ref, isVisible } = useInViewOnce();
     useRenderCount("Home");
   useEffect(() => {
@@ -55,7 +55,7 @@ function Home({recordVisit}) {
 
       <main className="homepage">
         <section id="home" className="hero">
-          <HeroSection />
+          <HeroSection setOpen={setOpen} />
         </section>
         <section id="chardham">
           <CharDhamPackage />

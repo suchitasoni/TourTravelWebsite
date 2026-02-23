@@ -55,7 +55,7 @@ function CharDhamPackage() {
 
         {/* IMAGE */}
         <div className="chardham-image fade-in-section fade-left">
-          <img src="https://res.cloudinary.com/dt5wgcgwl/image/upload/v1771502624/mu4g5u0xrt4px4nuxjic.jpg" alt="Char Dham Yatra" />
+          <img src="https://res.cloudinary.com/dt5wgcgwl/image/upload/v1771850030/dxyahpbiosgqgwvmjnzb.png" alt="Char Dham Yatra" />
           <div className="chardham-badge">
             Next Departure: <strong>{nextTrips.find(x => x.destination.toLowerCase().includes("char-dham"))?.tripDate || "Coming soon"} </strong>
           </div>

@@ -1,91 +1,117 @@
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import "./Hero.css";
 import IconButton from "@mui/material/IconButton";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { useHref, useNavigate } from "react-router-dom";
 import { useRenderCount } from "../TourDataContext";
 
-const images = [
-  "https://res.cloudinary.com/dt5wgcgwl/image/upload/c_crop,w_1200,h_675,ar_16:9,q_auto,f_auto/v1762098016/a7qewugz40xem1yj3i7b.png",
-  "https://res.cloudinary.com/dt5wgcgwl/image/upload/c_crop,w_1200,h_675,ar_16:9,q_auto,f_auto/v1762098374/c73hyththjwwsuqft5xj.png"
+const slides = [
+  {
+    image:
+      "https://res.cloudinary.com/dt5wgcgwl/image/upload/v1771502624/mu4g5u0xrt4px4nuxjic.jpg",
+    title: "Explore The World With Us",
+    description:
+      "Experience Yamunotri, Gangotri, Kedarnath & Badrinath with comfort & guidance.",
+    buttonText: "View Packages",
+    buttonAction: "packages"
+  },
+  {
+    image:
+      "https://res.cloudinary.com/dt5wgcgwl/image/upload/c_crop,w_1470,h_497/v1771842924/xamevakkgi1irrarkx9w.png",
+    title: "Book Taxi Services",
+    description:
+      "Book Taxi Services in Satna, Maihar, Jabalpur and more.",
+    buttonText: "Book Now",
+    buttonAction: "taxi"
+  },
 ];
 
-const HeroSection = () => {
+const HeroSection = ({ setOpen }) => {
   useRenderCount("HeroSection");
-  const imgRef = useRef(null);
-  let currentIndex = 0;
 
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto slide
   useEffect(() => {
     const interval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % images.length;
-      imgRef.current.src = images[currentIndex];
+      setCurrentIndex((prev) => (prev + 1) % slides.length);
     }, 4000);
 
     return () => clearInterval(interval);
   }, []);
 
-   const handlePackagesNavigation = () => {
-    const element = document.getElementById('packages');
-    if (element) {
-        element.scrollIntoView({
-            behavior: 'smooth', // Optional: smooth scrolling
-            block: 'start'      // Aligns the top of the element to the top of the viewport
-        });
+  const handlePackagesNavigation = (action) => {
+    if (action === "taxi") {
+      setOpen(true);
+    }
+    if (action === "packages") {
+      const element = document.getElementById("packages");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
   };
 
   const nextSlide = () => {
-    currentIndex = (currentIndex + 1) % images.length;
-    imgRef.current.src = images[currentIndex];
+    setCurrentIndex((prev) => (prev + 1) % slides.length);
   };
 
   const prevSlide = () => {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    imgRef.current.src = images[currentIndex];
+    setCurrentIndex(
+      (prev) => (prev - 1 + slides.length) % slides.length
+    );
   };
 
   return (
     <div className="hero-banner">
-      <img ref={imgRef}
-        src={images[0]}
+
+      <img
+        src={slides[currentIndex].image}
         alt="Travel destination"
         className="hero-image"
         fetchpriority="high"
         loading="eager"
         decoding="async"
-        width="1060"
-        height="551"
       />
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+
+      <div className="hero-overlay"></div>
+
       <div className="hero-text">
-        <h1>Explore The World With Us</h1>
-        <p>
-          Find the best tour packages, holiday trips, and affordable travel
-          deals curated specially for you.
-        </p>
-        <button onClick={handlePackagesNavigation}>View Packages</button>
+        <h1>{slides[currentIndex].title}</h1>
+        <p>{slides[currentIndex].description}</p>
+        <button onClick={() => handlePackagesNavigation(slides[currentIndex].buttonAction)}>
+          {slides[currentIndex].buttonText}
+        </button>
       </div>
-      
-      <IconButton onClick={prevSlide}
+
+      <IconButton
+        onClick={prevSlide}
         sx={{
           position: "absolute",
-          top: "27vh",
+          top: "50%",
           left: "0",
           transform: "translateY(-50%)",
           backgroundColor: "rgba(255,255,255,0.4)",
-          "&:hover": { backgroundColor: "rgba(255,255,255,0.7)" }
-        }}><ArrowBackIosNewIcon /></IconButton>
+          "&:hover": { backgroundColor: "rgba(255,255,255,0.7)" },
+        }}
+      >
+        <ArrowBackIosNewIcon />
+      </IconButton>
 
-      <IconButton onClick={nextSlide}
+      <IconButton
+        onClick={nextSlide}
         sx={{
           position: "absolute",
-          top: "27vh",
+          top: "50%",
           right: "0",
           transform: "translateY(-50%)",
           backgroundColor: "rgba(255,255,255,0.4)",
-          "&:hover": { backgroundColor: "rgba(255,255,255,0.7)" }
-        }}><ArrowForwardIosIcon /></IconButton> </div>
+          "&:hover": { backgroundColor: "rgba(255,255,255,0.7)" },
+        }}
+      >
+        <ArrowForwardIosIcon />
+      </IconButton>
+    </div>
   );
 };
 

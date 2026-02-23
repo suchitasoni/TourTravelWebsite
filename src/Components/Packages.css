@@ -174,9 +174,9 @@
 /* Next Departure Badge */
 .chardham-badge {
   position: absolute;
-  top: 20px;
+  bottom: 20px;
   left: 20px;
-  background-color: #0b2c46;
+  background-color: #252525;
   color: #fff;
   padding: 10px 18px;
   border-radius: 8px;
