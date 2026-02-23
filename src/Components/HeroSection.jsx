@@ -79,7 +79,7 @@ const HeroSection = ({ setOpen }) => {
 
       <div className="hero-text">
         <h1>{slides[currentIndex].title}</h1>
-        <p style={{maxWidth: '87%',justifySelf: 'center'}}>{slides[currentIndex].description}</p>
+        <p style={{maxWidth: '87%',placeSelf: 'center',justifySelf: 'center'}}>{slides[currentIndex].description}</p>
         <button onClick={() => handlePackagesNavigation(slides[currentIndex].buttonAction)}>
           {slides[currentIndex].buttonText}
         </button>
