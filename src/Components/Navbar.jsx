@@ -70,7 +70,7 @@ const Navbar = ()=>{
 
   <Box className="navbar-social">
     <IconButton
-      href="https://www.facebook.com"
+      href="https://www.facebook.com/share/1DG9YKwh6E/"
       target="_blank"
       size="small"
       className="social-icon"
@@ -79,7 +79,7 @@ const Navbar = ()=>{
     </IconButton>
 
     <IconButton
-      href="https://www.instagram.com"
+      href="https://www.instagram.com/maiharonline?igsh=MWJ0ZHF6NGx5d2N1cg=="
       target="_blank"
       size="small"
       className="social-icon"
