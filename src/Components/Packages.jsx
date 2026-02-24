@@ -146,7 +146,7 @@ useEffect(() => {
                         {pkg.description}
                       </Typography>
 
-                      <Typography variant="body1" fontWeight={600}>
+                      <Typography variant="h7" color="primary" mt={2} fontWeight="bold">
                         {pkg.price > 0
                           ? `Starting at ₹ ${pkg.price} /person`
                           : "Coming Soon"}

@@ -10,6 +10,7 @@ import { useRenderCount } from "../TourDataContext.jsx";
 import { Suspense, lazy } from "react";
 import { useInViewOnce } from "../useInViewOnce.js";
 import CharDhamPackage from "../Components/CharDhamPackage.jsx";
+import HotelList from "../Components/HotelList.jsx";
 
 const Packages = lazy(() => import("../Components/Packages.jsx"));
 
@@ -66,6 +67,9 @@ function Home({recordVisit, setOpen}) {
             <Packages />
           </Suspense>
         )}
+        </section>
+        <section id="hotels" style={{padding: '5px 15px'}}>
+          <HotelList />
         </section>
         <section id="howitworks" ><HowItWorks /></section>
         <section id="reviews" style={{padding: '5px 15px'}}>

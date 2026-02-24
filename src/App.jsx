@@ -19,8 +19,9 @@ import { useState } from 'react'
 import Footer from "./Components/Footer.jsx";
 import Navbar from './Components/Navbar.jsx'
 import {Suspense, lazy} from "react";
-
+import HotelDetails from './Components/HotelDetails.jsx'
 const ItineraryPage = lazy(() => import("./Components/ItineraryPage.jsx").then(module => ({ default: module.ItineraryPage })));
+// const HotelDetails = lazy(() => import("./Components/HotelDetails.jsx").then(module => ({ default: module.HotelDetails })));
 function App() {
     const [open, setOpen] = useState(false);
     const location = useLocation();
@@ -55,6 +56,7 @@ function App() {
           <Route path='/contact' element={<ContactUs recordVisit={recordVisit} />} />
           <Route path='/gallery' element={<Gallery />} />
           <Route path="/itinerary/:id" element={<ItineraryPage />} />
+          <Route path="/hotel/:id" element={<HotelDetails />} />
         </Routes>
       </Suspense>
       {!hideLayout && <section id="footer" className="footer"><Footer setOpen={setOpen} /></section>}

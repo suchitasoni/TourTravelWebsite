@@ -6,6 +6,8 @@ import "./Admin.css";
 import ViewPackages from "./ViewPackages";
 import EnquiriesAdmin from "./EnquiriesAdmin";
 import GalleryAdmin from "./GalleryAdmin";
+import { Hotel } from "@mui/icons-material";
+import HotelsAdmin from "./HotelsAdmin";
 
 const MetricsAdmin = React.lazy(() => import("./MetricsAdmin"));
 export default function Dashboard() {
@@ -17,6 +19,7 @@ export default function Dashboard() {
 
       <div className="admin-content">
         {activeTab === "packages" && <ViewPackages />}
+        {activeTab === "hotels" && <HotelsAdmin />}
         {activeTab === "enquiries" && <EnquiriesAdmin />}
         {activeTab === "metrics" && <Suspense fallback={<div>Loading Metrics...</div>}><MetricsAdmin /></Suspense>}
         {activeTab === "gallery" && <GalleryAdmin />}
@@ -44,6 +47,12 @@ const AdminNav = ({ activeTab, setActiveTab }) => {
           onClick={() => setActiveTab("packages")}
         >
           Packages
+        </button>
+        <button
+          className={activeTab === "hotels" ? "active" : ""}
+          onClick={() => setActiveTab("hotels")}
+        >
+          Hotels
         </button>
         <button
           className={activeTab === "enquiries" ? "active" : ""}
