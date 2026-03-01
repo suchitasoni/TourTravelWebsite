@@ -20,10 +20,11 @@ const slides = [
       "https://res.cloudinary.com/dt5wgcgwl/image/upload/c_crop,w_1470,h_497/v1771842924/xamevakkgi1irrarkx9w.png",
     title: "Book Taxi Services",
     description:
-      `Book Taxi Services in Satna, Maihar, Jabalpur and more.
-       Call us at 7089211414 or 919300304422.`,
+      `Book Taxi Services in Satna, Maihar, Jabalpur and more.`,
     buttonText: "Book Now",
-    buttonAction: "taxi"
+    buttonAction: "taxi",
+    buttonText2: "Call Now",
+    buttonAction2: "call"
   },
 ];
 
@@ -50,6 +51,9 @@ const HeroSection = ({ setOpen }) => {
       if (element) {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
+    }
+    if (action === "call") {
+      window.location.href = "tel:9300304422";
     }
   };
 
@@ -79,10 +83,15 @@ const HeroSection = ({ setOpen }) => {
 
       <div className="hero-text">
         <h1>{slides[currentIndex].title}</h1>
-        <p style={{maxWidth: '87%',margin:'auto'}}>{slides[currentIndex].description}</p>
+        <p style={{maxWidth: '87%',margin:'15px auto'}}>{slides[currentIndex].description}</p>
         <button onClick={() => handlePackagesNavigation(slides[currentIndex].buttonAction)}>
           {slides[currentIndex].buttonText}
         </button>
+        {slides[currentIndex].buttonText2 && (
+          <button onClick={() => handlePackagesNavigation(slides[currentIndex].buttonAction2)} style={{marginLeft: '10px'}}>
+            {slides[currentIndex].buttonText2}
+          </button>
+        )}
       </div>
 
       <IconButton

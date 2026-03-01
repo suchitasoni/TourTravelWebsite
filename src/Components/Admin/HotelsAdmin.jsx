@@ -65,7 +65,6 @@ const HotelsAdmin = () => {
     starRating: "",
     address: "",
     phone: "",
-    locationLink: "",
     about: "",
     checkIn: "",
     checkOut: "",
@@ -258,7 +257,6 @@ const HotelsAdmin = () => {
       starRating: hotel.starRating || "",
       address: hotel.address || "",
       phone: hotel.phone || "",
-      locationLink: hotel.locationLink || "",
       about: hotel.about || "",
       checkIn: hotel.checkIn || "",
       checkOut: hotel.checkOut || "",
@@ -307,7 +305,6 @@ const HotelsAdmin = () => {
       starRating: "",
       address: "",
       phone: "",
-      locationLink: "",
       about: "",
       checkIn: "",
       checkOut: "",
@@ -422,6 +419,7 @@ const HotelsAdmin = () => {
           <TextField
             label="Check In"
             margin="normal"
+            placeholder="1 PM"
             value={hotelData.checkIn}
             onChange={(e) =>
               setHotelData({ ...hotelData, checkIn: e.target.value })
@@ -431,6 +429,7 @@ const HotelsAdmin = () => {
           <TextField
             label="Check Out"
             margin="normal"
+            placeholder="11 AM"
             value={hotelData.checkOut}
             onChange={(e) =>
               setHotelData({ ...hotelData, checkOut: e.target.value })
@@ -607,6 +606,7 @@ const HotelsAdmin = () => {
                 label="Capacity"
                 fullWidth
                 margin="normal"
+                placeholder="Max 3"
                 value={room.capacity}
                 onChange={(e) =>
                   handleRoomChange(index, "capacity", e.target.value)
