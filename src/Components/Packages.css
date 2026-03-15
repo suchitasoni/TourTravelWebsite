@@ -320,4 +320,13 @@
   .chardham-highlight-section{
   padding: 26px 15px 10px 15px;
   }
+  .carousel-inner{
+    flex-direction: column;
+  }
+  .scroll-btn {
+    display: none;
+  }
+  #category-tabs [class*="flexContainer"]{
+    flex-wrap: wrap;
+  }
 }
