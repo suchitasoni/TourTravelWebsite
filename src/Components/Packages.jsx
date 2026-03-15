@@ -82,6 +82,7 @@ useEffect(() => {
           indicatorColor="primary"
           variant="scrollable"
           scrollButtons="auto"
+          id="category-tabs"
         >
           {categories.map((cat) => (
             <Tab key={cat} label={cat} value={cat} />
