@@ -6,6 +6,7 @@ import {
   doc,
   orderBy,
   query,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { formatDistanceToNow } from "date-fns";
@@ -58,15 +59,40 @@ export default function EnquiriesAdmin() {
     });
     setFilteredEnquiries(sorted);
   };
+  const handleDelete = async (id, imageUrl) => {
+      if (window.confirm("Are you sure you want to delete this package?")) {
+        await deleteDoc(doc(db, "packages", id));
+        const res = await fetch("/.netlify/functions/delete-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageUrl }),
+        });
+  
+        const result = await res.json();
+        if (result.success) {
+          alert("Package and image deleted successfully!");
+        } else {
+          console.warn("Image deletion failed:", result.error);
+        }
+        fetchPackages();
+      }
+    };
 
   // Update status
   const updateStatus = async (id, newStatus) => {
     try {
-      const ref = doc(db, "enquiries", id);
-      await updateDoc(ref, {
-        status: newStatus,
-        updatedAt: new Date(),
-      });
+      if (newStatus === "Delete") {
+        if (window.confirm("Are you sure you want to delete this enquiry?")) {
+          await deleteDoc(doc(db, "enquiries", id));
+        }
+      }
+      else {
+        const ref = doc(db, "enquiries", id);
+        await updateDoc(ref, {
+          status: newStatus,
+          updatedAt: new Date(),
+        });
+      }
       fetchEnquiries();
     } catch (error) {
       console.error("Error updating status:", error);
@@ -174,6 +200,7 @@ export default function EnquiriesAdmin() {
                     <option>In Progress</option>
                     <option>Booked</option>
                     <option>Cancelled</option>
+                    <option>Delete</option>
                   </select>
                 </td>
               </tr>
