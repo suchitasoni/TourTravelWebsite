@@ -14,6 +14,12 @@ const ViewPackages = () => {
   const [packages, setPackages] = useState([]);
   const [editPackage, setEditPackage] = useState(null);
   const [nextTrips, setNextTrips] = useState([]);
+  const [packageData, setPackageData] = useState({
+    destination: "",
+    tripDate: "",
+    imageUrl: "",
+  });
+  const [uploading, setUploading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (event, newValue) => setTab(newValue);
@@ -27,6 +33,7 @@ const ViewPackages = () => {
       ...doc.data(),
     }));
     setPackages(packageList);
+    setPackageData({ destination: "", tripDate: "", imageUrl: "" }); // Reset packageData after fetching
   };
   const fetchNextTrip = async () => {
     const querySnapshot = await getDocs(collection(db, "nextTrips"));
@@ -81,6 +88,72 @@ const ViewPackages = () => {
     if (tab === 2) fetchNextTrip();
   }, [tab]);
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Please upload an image smaller than 5MB.");
+      return;
+    }
+    setUploading(true);
+    const formData = new FormData();
+    const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+    const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+    formData.append("file", file);
+    formData.append("upload_preset", UPLOAD_PRESET); // replace with your Cloudinary preset
+
+    try {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, 
+        {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Upload failed: ${errorText}`);
+      }
+
+      const data = await response.json();
+      setPackageData((prev) => ({ ...prev, imageUrl: data.secure_url }));
+    } catch (error) {
+      console.error("Cloudinary upload error:", error);
+      alert("Image upload failed. Please check your preset or file size.");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleAddNextTrip = async (newTrip) => {
+    try {
+      await setDoc(doc(db, "nextTrips", newTrip.destination.toLowerCase()), newTrip);
+      fetchNextTrip();
+      setPackageData({ destination: "", tripDate: "", imageUrl: "" }); // Reset after adding
+      alert("Next trip added successfully!");
+    } catch (error) {
+      console.error("Error adding next trip:", error);
+      alert("Failed to add next trip.");
+    }
+  };
+  const handleDeleteNextTrip = async (destination) => {
+    if (window.confirm("Are you sure you want to delete this next trip?")) {
+      try {
+        await deleteDoc(doc(db, "nextTrips", destination.toLowerCase()));
+        await fetch("/.netlify/functions/delete-image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ imageUrl: nextTrips.find(t => t.destination === destination)?.imageUrl })
+        });
+        fetchNextTrip();
+      } catch (error) {
+        console.error("Error deleting next trip:", error);
+        alert("Failed to delete next trip.");
+      }
+    }
+  };
 
   return (
     <Box className="packages-admin-container">
@@ -158,6 +231,7 @@ const ViewPackages = () => {
               <tr>
                 <th>Destination</th>
                 <th>Trip Date</th>
+                <th>Image</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -166,11 +240,31 @@ const ViewPackages = () => {
                 <tr key={trip.destination}>
                   <td>{trip.destination}</td>
                   <td><input type="text" defaultValue={trip.tripDate} onChange={(e) => handleInputChange(trip.destination, e.target.value)}/></td>
-                  <td><button onClick={(e) => handleSaveNextTrip(e, trip.destination)}>Save</button></td>
+                  <td><img src={trip.imageUrl} alt={trip.destination} width="100"/></td>
+                  <td><button onClick={(e) => handleSaveNextTrip(e, trip.destination)}>Save</button>
+                  <button onClick={() => handleDeleteNextTrip(trip.destination)}>Delete</button></td>
                 </tr>
               ))}
             </tbody>
           </table>
+          <h2>Add new trip</h2>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            handleAddNextTrip(packageData);
+          }}>
+            <input type="text" name="destination" placeholder="Destination" required onChange={(e) => setPackageData({...packageData, destination: e.target.value})}/>
+            <input type="text" name="tripDate" placeholder="Trip Date" required onChange={(e) => setPackageData({...packageData, tripDate: e.target.value})}/>
+            <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
+              {uploading && <p className="uploading-text">Uploading...</p>}
+              {packageData.imageUrl && (
+                <img src={packageData.imageUrl} alt="Preview" className="preview-img" />
+              )}            <button type="submit">Add Next Trip</button>
+          </form>
         </div>
       )}
     </Box>
