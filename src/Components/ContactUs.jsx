@@ -23,19 +23,19 @@ export default function ContactUs({recordVisit}) {
                     <div className="contact-info-div">
                         <h3>Name :</h3>
                         <span>Prabhakar Mishra</span>
-                        <h3>Tel :</h3>
-                        <span>7674292040</span>
+                        {/* <h3>Tel :</h3>
+                        <span>7674292040</span> */}
                         <h3>Mobile :</h3>
                         <span>919300304422 &nbsp;
                             <a href='tel:919300304422'><CallRoundedIcon sx={{verticalAlign:'middle'}}/></a>
                             <a onClick={()=> window.open(`https://wa.me/${adminPhone}?text=${encoded}`, "_blank")}> <WhatsAppIcon sx={{verticalAlign:'middle'}}/></a>
                         </span> 
                         <h3>Email :</h3>
-                        <span>maiharonline2016@gmail.com</span>
-                        <h3>Office hours:</h3>
+                        <span>maiharonline2006@gmail.com</span>
+                        {/* <h3>Office hours:</h3>
                         <span>Monday to Saturday, Between 10:00 AM - 7:00 PM </span>
                         <h3></h3>
-                        <span>Sunday, Between 10:00 AM - 6:00 PM</span>
+                        <span>Sunday, Between 10:00 AM - 6:00 PM</span> */}
                     </div>                    
                 </div>
             </section>
